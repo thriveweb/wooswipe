@@ -162,14 +162,13 @@ function wooswipe_scripts_method() {
     wp_enqueue_style( 'slick-css', $wooswipe_wp_plugin_path . '/slick/slick.css'  );
     wp_enqueue_style( 'slick-theme', $wooswipe_wp_plugin_path . '/slick/slick-theme.css'  );
 
-    wp_enqueue_script( 'pswp', $wooswipe_wp_plugin_path . '/pswp/photoswipe.min.js' );
-    wp_enqueue_script( 'pswp-ui', $wooswipe_wp_plugin_path . '/pswp/photoswipe-ui-default.min.js' );
+    wp_enqueue_script( 'pswp', $wooswipe_wp_plugin_path . '/pswp/photoswipe.min.js', null, null, true );
+    wp_enqueue_script( 'pswp-ui', $wooswipe_wp_plugin_path . '/pswp/photoswipe-ui-default.min.js', null, null, true );
 
-		wp_enqueue_script( 'slick', $wooswipe_wp_plugin_path .'/slick/slick.min.js' );
-    wp_enqueue_script( 'wooswipe_main', $wooswipe_wp_plugin_path .'/main.js' );
+		wp_enqueue_script( 'slick', $wooswipe_wp_plugin_path .'/slick/slick.min.js', null, null, true );
+    wp_enqueue_script( 'wooswipe_main', $wooswipe_wp_plugin_path .'/main.js', null, null, true );
 }
 add_action('wp_enqueue_scripts', 'wooswipe_scripts_method');
-
 
 ///////////////////////
 // remove woo lightbox
@@ -193,7 +192,7 @@ add_action( 'woocommerce_before_single_product_summary', 'wooswipe_woocommerce_s
 function wooswipe_woocommerce_show_product_thumbnails(){
 
 	global $post, $woocommerce, $product;
-	
+
 	?>
 	<div id="wooswipe" class="images">
 	<?php
