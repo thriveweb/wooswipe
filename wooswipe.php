@@ -166,7 +166,6 @@ function wooswipe_scripts_method() {
 
 		wp_enqueue_script( 'slick', $wooswipe_wp_plugin_path .'/slick/slick.min.js', null, null, true );
 
-		wp_enqueue_script( 'picturefill', $wooswipe_wp_plugin_path .'/picturefill.min.js' ); // Load in header
 		wp_enqueue_style( 'wooswipe-css', $wooswipe_wp_plugin_path . '/wooswipe.css' );
     wp_enqueue_script( 'wooswipe-js', $wooswipe_wp_plugin_path .'/wooswipe.js', null, null, true );
 }
