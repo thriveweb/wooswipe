@@ -223,10 +223,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 		}
 
 		$attachment_ids = $product->get_gallery_attachment_ids();
-		if ( $attachment_ids ) {
-			$loop 		= 0;
-			$columns 	= apply_filters( 'woocommerce_product_thumbnails_columns', 3 );
-			?>
+		if ( $attachment_ids ) { ?>
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
 						<?php
