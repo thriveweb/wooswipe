@@ -71,31 +71,25 @@
     }
 
     // build items array
-    if ($('.thumbnails .thumb').length > 0) {
-      var $thumbs = $('.thumbnails .thumb');
-      for (var i = 0; i < $thumbs.length; i++) {
-        var $this = $thumbs[i];
-        var src = $this.attributes['data-hq'].value;
-        var w = $this.attributes['data-w'].value;
-        var h = $this.attributes['data-h'].value;
-        var item = {
-          src: src,
-          w: w,
-          h: h
-        };
-        items.push(item);
-      }
-    } else if ($('.single-product-main-image').length > 0) {
-      var $this = $('.single-product-main-image img')[0];
-      var src = $this.attributes['data-hq'].value;
-      var w = $this.attributes['data-w'].value;
-      var h = $this.attributes['data-h'].value;
+    function pushItem(image){
+      var src = image.attributes['data-hq'].value;
+      var w = image.attributes['data-w'].value;
+      var h = image.attributes['data-h'].value;
       var item = {
         src: src,
         w: w,
         h: h
       };
       items.push(item);
+    }
+    if ($('.thumbnails .thumb').length > 0) {
+      var $thumbs = $('.thumbnails .thumb');
+      for (var i = 0; i < $thumbs.length; i++) {
+        pushItem($thumbs[i]);
+      }
+    } else if ($('.single-product-main-image').length > 0) {
+      $this = $('.single-product-main-image img')[0];
+      pushItem($this);
     }
 
     // click event
