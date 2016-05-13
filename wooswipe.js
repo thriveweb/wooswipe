@@ -32,9 +32,7 @@
 
     });
     $('.thumbnails .thumb').click(function(e) {
-
       e.preventDefault();
-
       var $this = $(this);
       var med = $this.attr('data-med');
       var srcset = $this.attr('data-med');
@@ -45,27 +43,15 @@
       var hqh = $this.attr('data-h');
       var ind = $this.parent().index();
       var parHeight = 0;
-
-      $('.single-product-main-image img').fadeOut('fast', function() {
-
-        $(this).attr('data-ind', ind)
-          .attr('src', med)
-          .attr('srcset', med)
-          .attr('width', width)
-          .attr('height', height)
-          .attr('data-hq', hq)
-          .attr('data-w', hqw)
-          .attr('data-h', hqh)
-          .fadeIn('fast', function() {
-            // setTimeout(function(){
-            // 	parHeight = $(this).height();
-            // 	$('.single-product-main-image').animate({
-            // 		height: parHeight
-            // 	}, 200);
-            // }, 300);
-          });
-
-      });
+      $('.single-product-main-image img')
+        .attr('data-ind', ind)
+        .attr('src', med)
+        .attr('srcset', med)
+        .attr('width', width)
+        .attr('height', height)
+        .attr('data-hq', hq)
+        .attr('data-w', hqw)
+        .attr('data-h', hqh);
     });
   })();
 
@@ -77,26 +63,6 @@
     function openPswp(index) {
       var options = {
         index: index,
-        /* ,
-				getThumbBoundsFn: function(index) {
-
-				    // find thumbnail element
-				    var thumbnail = document.querySelectorAll('.zoom')[index];
-
-				    // get window scroll Y
-				    var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-				    // optionally get horizontal scroll
-
-				    // get position of element relative to viewport
-				    var rect = thumbnail.getBoundingClientRect();
-
-				    // w = width
-				    return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-
-
-				    // Good guide on how to get element coordinates:
-				    // http://javascript.info/tutorial/coordinates
-				}, */
         shareEl: false
       };
       // Initializes and opens PhotoSwipe
