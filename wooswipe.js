@@ -88,7 +88,7 @@
         pushItem($thumbs[i]);
       }
     } else if ($('.single-product-main-image').length > 0) {
-      $this = $('.single-product-main-image img')[0];
+      var $this = $('.single-product-main-image img')[0];
       pushItem($this);
     }
 
