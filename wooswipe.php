@@ -198,8 +198,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			$image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
 			$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
 
-			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id(), '1000w' );
-			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), '1800w' );
+			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), array(1920, 1080) );
 
 			$image = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ),
 				array(
@@ -230,10 +229,9 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			?>
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
-						<?php /// add main image
-							if ( has_post_thumbnail() ) {
-
-								$attachment_id 	= get_post_thumbnail_id();
+						<?php
+							function addImageThumbnail($attachment_id){
+								global $post;
 								$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
 								$hq       		= wp_get_attachment_image_src( $attachment_id, 'full' );
 								$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
@@ -243,35 +241,20 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 										<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
 									</li>',
 									$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID );
+							}
 
-							} //endif has_post_thumbnail
+							/// add main image
+							if ( has_post_thumbnail() ) {
+								$attachment_id 	= get_post_thumbnail_id();
+								addImageThumbnail($attachment_id);
+							}
 
+							//add thumbnails
 							foreach ( $attachment_ids as $attachment_id ) {
-								$classes = array( '' );
-
-								if ( $loop == 0 || $loop % $columns == 0 )
-									$classes[] = '';
-								if ( ( $loop + 1 ) % $columns == 0 )
-									$classes[] = '';
-
 								$image_link = wp_get_attachment_url( $attachment_id );
-								if ( ! $image_link )
-									continue;
-
-								$image	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
-								$hq     = wp_get_attachment_image_src( $attachment_id, 'full' );
-								$med    = wp_get_attachment_image_src( $attachment_id, 'shop_single' );
-
-								$image_class = esc_attr( implode( '', $classes ) );
-								$image_title = '';
-								echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
-									<li>
-										<div class="%s thumb" title="%s" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
-									</li>'
-									, $image_class, $image_title, $hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID, $image_class );
-
-								$loop++;
-							} //endforeach $attachment_ids ?>
+								if ( !$image_link ) { continue; }
+								addImageThumbnail($attachment_id);
+							} ?>
 					</ul>
 
 			</div>
