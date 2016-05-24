@@ -22,6 +22,9 @@ WooSwipe should work out of the box with your WooCommerce gallery settings. Simp
 * Full image size
 * 2 colour options
 
+Planned Features:
+* Show titles or captions 
+
 [More Info here](http://thriveweb.com.au/the-lab/wooswipe/ "WooSwipe")
 
 == Installation ==
