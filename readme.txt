@@ -38,6 +38,8 @@ Planned Features:
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
 
+== Changelog ==
+
 = 1.1.1 =
 * rewrite js
 * fix image change bugs
