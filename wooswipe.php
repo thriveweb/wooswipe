@@ -151,7 +151,8 @@ add_action('admin_menu', 'register_wooswipe_custom_submenu_page',99);
 
 function wooswipe_scripts_method() {
 
-	$wooswipe_wp_plugin_path =  plugins_url() . '/wooswipe' ;
+	$wooswipe_wp_plugin_path =  plugin_dir_url( __FILE__ );
+
 	$options = get_option('wooswipe_options');
 
 	wp_enqueue_style( 'pswp-css', $wooswipe_wp_plugin_path . '/pswp/photoswipe.css'  );
