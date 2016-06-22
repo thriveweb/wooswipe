@@ -4,9 +4,9 @@ Plugin Name: WooSwipe
 Plugin URI: http://thriveweb.com.au/the-lab/wooswipe/
 Description: This is a image gallery plugin for WordPress built using wooswipe from Dmitry Semenov <a href="http://photoswipe.com.au/">photoswipe</a> and <a href="http://kenwheeler.github.io/slick/">Slick</a> Carousel</a>.
 
-Author: Dean Oakley, Eric Jinks
+Author: Dean Oakley, Eric Jinks, BJ CJ
 Author URI: http://thriveweb.com.au/
-Version: 1.1.2
+Version: 1.1.3
 Text Domain: wooswipe
 */
 
@@ -151,8 +151,7 @@ add_action('admin_menu', 'register_wooswipe_custom_submenu_page',99);
 
 function wooswipe_scripts_method() {
 
-	$wooswipe_wp_plugin_path =  plugin_dir_url( __FILE__ );
-
+	$wooswipe_wp_plugin_path =  plugins_url() . '/wooswipe' ;
 	$options = get_option('wooswipe_options');
 
 	wp_enqueue_style( 'pswp-css', $wooswipe_wp_plugin_path . '/pswp/photoswipe.css'  );
@@ -195,12 +194,15 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 	<div id="wooswipe" class="images">
 
 		<?php
+		//Hook Before Wooswipe
+		do_action( 'wooswipe_before_main' );
+
 		if ( has_post_thumbnail() ) {
 			$image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
 			$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
 
-			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), array(1920, 1080) );
-
+			$zoomed_image_size = array(1920, 1080);
+			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 			$image = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ),
 				array(
 					'title' => '',
@@ -231,7 +233,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 							function addImageThumbnail($attachment_id){
 								global $post;
 								$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
-								$hq       		= wp_get_attachment_image_src( $attachment_id, 'full' );
+								$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 								$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
 
 								echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
@@ -256,7 +258,9 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 					</ul>
 
 			</div>
-		<?php } ?>
+		<?php }
+		// Hook After Wooswipe
+		do_action( 'wooswipe_after_main' );?>
 	</div>
 
 	<!-- PSWP -->
