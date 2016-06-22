@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using wooswipe f
 
 Author: Dean Oakley, Eric Jinks
 Author URI: http://thriveweb.com.au/
-Version: 1.1.1
+Version: 1.1.2
 Text Domain: wooswipe
 */
 
