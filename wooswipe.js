@@ -1,4 +1,4 @@
-(function(document, window, $) {
+;(function(document, window, $) {
   'use strict';
 
   (function productThumbnails() {
@@ -31,6 +31,13 @@
       }]
 
     });
+    var mainImage = $('.single-product-main-image img');
+    if(!mainImage.length){
+      mainImage = $('#wooswipe > img');
+      mainImage.wrap( '<a class="woocommerce-main-image zoom" href="#"></a>' )
+      $('.woocommerce-main-image').wrap('<div class="single-product-main-image"></div>')
+    }
+    console.log(mainImage);
     $('.thumbnails .thumb').click(function(e) {
       e.preventDefault();
       var $this = $(this);
@@ -43,7 +50,7 @@
       var hqh = $this.attr('data-h');
       var ind = $this.parent().index();
       var parHeight = 0;
-      $('.single-product-main-image img')
+      mainImage
         .attr('data-ind', ind)
         .attr('src', med)
         .attr('srcset', med)
