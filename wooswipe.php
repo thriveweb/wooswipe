@@ -196,12 +196,11 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 		<?php
 		//Hook Before Wooswipe
 		do_action( 'wooswipe_before_main' );
-
+		$zoomed_image_size = array(1920, 1080);
 		if ( has_post_thumbnail() ) {
 			$image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
 			$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
-
-			$zoomed_image_size = array(1920, 1080);
+			
 			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 			$image = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ),
 				array(
