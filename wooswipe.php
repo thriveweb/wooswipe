@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using wooswipe f
 
 Author: Dean Oakley, Eric Jinks, BJ CJ
 Author URI: http://thriveweb.com.au/
-Version: 1.1.3
+Version: 1.1.4
 Text Domain: wooswipe
 */
 
@@ -200,7 +200,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 		if ( has_post_thumbnail() ) {
 			$image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
 			$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
-			
+
 			$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 			$image = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ),
 				array(
