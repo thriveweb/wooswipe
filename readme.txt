@@ -32,6 +32,8 @@ wooswipe_after_main
 Filter:
 wooswipe_zoomed_image_size
 
+Join the chat at https://gitter.im/thriveweb/wooswipe
+
 [More Info here](http://thriveweb.com.au/the-lab/wooswipe/ "WooSwipe")
 
 == Installation ==
@@ -68,4 +70,3 @@ wooswipe_zoomed_image_size
 = 1.0.1 =
 * This is the first version
 
-Join the chat at https://gitter.im/thriveweb/wooswipe
