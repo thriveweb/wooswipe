@@ -37,7 +37,6 @@
       mainImage.wrap( '<a class="woocommerce-main-image zoom" href="#"></a>' )
       $('.woocommerce-main-image').wrap('<div class="single-product-main-image"></div>')
     }
-    console.log(mainImage);
     $('.thumbnails .thumb').click(function(e) {
       e.preventDefault();
       var $this = $(this);
