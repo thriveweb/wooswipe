@@ -229,7 +229,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
 						<?php
-							function addImageThumbnail($attachment_id){
+							function addImageThumbnail($attachment_id, $zoomed_image_size){
 								global $post;
 								$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
 								$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
@@ -245,14 +245,14 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 							/// add main image
 							if ( has_post_thumbnail() ) {
 								$attachment_id 	= get_post_thumbnail_id();
-								addImageThumbnail($attachment_id);
+								addImageThumbnail($attachment_id, $zoomed_image_size);
 							}
 
 							//add thumbnails
 							foreach ( $attachment_ids as $attachment_id ) {
 								$image_link = wp_get_attachment_url( $attachment_id );
 								if ( !$image_link ) { continue; }
-								addImageThumbnail($attachment_id);
+								addImageThumbnail($attachment_id, $zoomed_image_size);
 							} ?>
 					</ul>
 
