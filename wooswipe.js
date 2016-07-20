@@ -101,6 +101,10 @@
     // click event
     if ($('.single-product-main-image').length > 0) {
       $('.single-product-main-image').click(function(e) {
+        // Allow user to open image link in new tab or download it
+        if (e.which == 2 || e.ctrlKey || e.altKey) {
+          return;
+        }
         var ind = $(this).find('img').attr('data-ind');
         e.preventDefault();
         var index = ind ? parseInt(ind) : 0;
