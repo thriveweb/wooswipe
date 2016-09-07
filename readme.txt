@@ -31,6 +31,11 @@ wooswipe_after_main
 
 Filter:
 wooswipe_zoomed_image_size
+add_filter( 'wooswipe_zoomed_image_size', 'max_image_size', 10, 1 );
+function max_image_size( $size ) {
+	$size = "large";
+	return $size;
+}
 
 Join the chat at https://gitter.im/thriveweb/wooswipe
 
