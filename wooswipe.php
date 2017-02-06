@@ -154,20 +154,22 @@ function wooswipe_scripts_method() {
 	$wooswipe_wp_plugin_path =  plugins_url() . '/wooswipe' ;
 	$options = get_option('wooswipe_options');
 
-	wp_enqueue_style( 'pswp-css', $wooswipe_wp_plugin_path . '/pswp/photoswipe.css'  );
+	if ( is_woocommerce() && is_product() ) {
+		wp_enqueue_style( 'pswp-css', $wooswipe_wp_plugin_path . '/pswp/photoswipe.css'  );
 
-    if($options['white_theme']) wp_enqueue_style( 'white_theme', $wooswipe_wp_plugin_path . '/pswp/white-skin/skin.css'  );
-    else wp_enqueue_style( 'pswp-skin', $wooswipe_wp_plugin_path . '/pswp/default-skin/default-skin.css'  );
-    wp_enqueue_style( 'slick-css', $wooswipe_wp_plugin_path . '/slick/slick.css'  );
-    wp_enqueue_style( 'slick-theme', $wooswipe_wp_plugin_path . '/slick/slick-theme.css'  );
+	    if($options['white_theme']) wp_enqueue_style( 'white_theme', $wooswipe_wp_plugin_path . '/pswp/white-skin/skin.css'  );
+	    else wp_enqueue_style( 'pswp-skin', $wooswipe_wp_plugin_path . '/pswp/default-skin/default-skin.css'  );
+	    wp_enqueue_style( 'slick-css', $wooswipe_wp_plugin_path . '/slick/slick.css'  );
+	    wp_enqueue_style( 'slick-theme', $wooswipe_wp_plugin_path . '/slick/slick-theme.css'  );
 
-    wp_enqueue_script( 'pswp', $wooswipe_wp_plugin_path . '/pswp/photoswipe.min.js', null, null, true );
-    wp_enqueue_script( 'pswp-ui', $wooswipe_wp_plugin_path . '/pswp/photoswipe-ui-default.min.js', null, null, true );
+	    wp_enqueue_script( 'pswp', $wooswipe_wp_plugin_path . '/pswp/photoswipe.min.js', null, null, true );
+	    wp_enqueue_script( 'pswp-ui', $wooswipe_wp_plugin_path . '/pswp/photoswipe-ui-default.min.js', null, null, true );
 
 		wp_enqueue_script( 'slick', $wooswipe_wp_plugin_path .'/slick/slick.min.js', null, null, true );
 
 		wp_enqueue_style( 'wooswipe-css', $wooswipe_wp_plugin_path . '/wooswipe.css' );
-    wp_enqueue_script( 'wooswipe-js', $wooswipe_wp_plugin_path .'/wooswipe.js', null, null, true );
+	    wp_enqueue_script( 'wooswipe-js', $wooswipe_wp_plugin_path .'/wooswipe.js', null, null, true );
+	}
 }
 add_action('wp_enqueue_scripts', 'wooswipe_scripts_method');
 
