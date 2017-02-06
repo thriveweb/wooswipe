@@ -257,6 +257,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 					</ul>
 
 			</div>
+			<?php do_action( 'wooswipe_after_thumbs' ); ?>
 		<?php }
 		// Hook After Wooswipe
 		do_action( 'wooswipe_after_main' );?>
