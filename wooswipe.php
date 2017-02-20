@@ -212,8 +212,12 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 					'data-h' => $hq[2],
 					)
 			);
-
-			$attachment_count = count( $product->get_gallery_attachment_ids() );
+			
+			if (method_exists($product, 'get_gallery_image_ids')) {
+				$attachment_count = count( $product->get_gallery_image_ids() );
+			} else {
+				$attachment_count = count( $product->get_gallery_attachment_ids() );
+			}
 
 			$gallery = $attachment_count > 0 ? '[product-gallery]' : '';
 
@@ -226,7 +230,12 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), __( 'Placeholder', 'woocommerce' ) ), $post->ID );
 		}
 
-		$attachment_ids = $product->get_gallery_attachment_ids();
+		if (method_exists($product, 'get_gallery_image_ids')) {
+			$attachment_ids = $product->get_gallery_image_ids();
+		} else {
+			$attachment_ids = $product->get_gallery_attachment_ids();
+		}
+
 		if ( $attachment_ids ) { ?>
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
