@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Dean Oakley, Eric Jinks, BJ CJ
 Author URI: http://thriveweb.com.au/
-Version: 1.1.6.3
+Version: 1.1.6.4
 Text Domain: wooswipe
 */
 
@@ -222,7 +222,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			$gallery = $attachment_count > 0 ? '[product-gallery]' : '';
 
 			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '
-				<div class="single-product-main-image">
+				<div class="woocommerce-product-gallery__image single-product-main-image">
 					<a href="%s"  class="woocommerce-main-image zoom" title="%s" >%s</a>
 				</div>',
 				$image_link, $image_title, $image ), $post->ID );
