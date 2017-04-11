@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Dean Oakley, Eric Jinks, BJ CJ
 Author URI: http://thriveweb.com.au/
-Version: 1.1.6.4
+Version: 1.1.6.5
 Text Domain: wooswipe
 */
 
