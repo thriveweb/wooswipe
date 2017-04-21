@@ -1,6 +1,6 @@
 === WooSwipe WooCommerce Gallery ===
 Contributors: deanoakley, jinksi
-Author: Dean Oakley
+Author: Web Design Gold Coast
 Author URI: http://thriveweb.com.au/
 Plugin URI: http://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery, responsive
