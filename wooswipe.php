@@ -80,7 +80,7 @@ class wooswipe_plugin_options {
 		$options = wooswipe_plugin_options::WooSwipe_getOptions();
 		?>
 
-		<div id="wooswipe_admin" class="wrap">
+		<div id="wooswipe_admin" class="wrap"> 
 
 			<h2>WooSwipe Options</h2>
 
