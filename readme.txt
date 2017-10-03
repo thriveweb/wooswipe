@@ -55,6 +55,7 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 = 1.1.6.6 =
 * Readme
+* z-index increase
 
 = 1.1.6.5 =
 * Fixed image change bug with variation selector
