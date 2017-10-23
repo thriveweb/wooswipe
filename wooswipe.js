@@ -90,6 +90,7 @@
       };
       items.push(item);
     }
+    // Adding items to image for lightbox
     if ($('.thumbnails .thumb').length > 0) {
       var $thumbs = $('.thumbnails .thumb');
       var thumbAlt = $thumbs.find("img").attr("alt");
