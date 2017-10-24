@@ -81,19 +81,28 @@
       var src = image.attributes['data-hq'].value;
       var w = image.attributes['data-w'].value;
       var h = image.attributes['data-h'].value;
+      var t = image.attributes['data-title'].value;
       var item = {
         src: src,
         w: w,
-        h: h
+        h: h,
+        title: t
       };
       items.push(item);
     }
+    // Adding items to image for lightbox
     if ($('.thumbnails .thumb').length > 0) {
       var $thumbs = $('.thumbnails .thumb');
+      var thumbAlt = $thumbs.find("img").attr("alt");
       for (var i = 0; i < $thumbs.length; i++) {
+        $thumbs.attr('data-title', thumbAlt);
         pushItem($thumbs[i]);
       }
     } else if ($('.single-product-main-image').length > 0) {
+      var singleImg = $('.single-product-main-image img');
+      var singleImgAlt = singleImg.attr('alt');
+      singleImg.attr('data-title', singleImgAlt);
+
       var $this = $('.single-product-main-image img')[0];
       pushItem($this);
     }
