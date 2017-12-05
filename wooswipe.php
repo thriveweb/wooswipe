@@ -28,7 +28,7 @@ Text Domain: wooswipe
 
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 	die('Illegal Entry');
-} 
+}
 
 //============================== wooswipe options ========================//
 class wooswipe_plugin_options {
@@ -220,7 +220,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 
 			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '
 				<div class="woocommerce-product-gallery__image single-product-main-image">
-					<a href="%s"  class="woocommerce-main-image zoom" title="%s" >%s</a>
+					<a href="%s" alt="%s" class="woocommerce-main-image zoom" >%s</a>
 				</div>',
 				$image_link, $image_title, $image ), $post->ID );
 		} else {
