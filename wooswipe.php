@@ -28,7 +28,7 @@ Text Domain: wooswipe
 
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 	die('Illegal Entry');
-}
+} 
 
 //============================== wooswipe options ========================//
 class wooswipe_plugin_options {
