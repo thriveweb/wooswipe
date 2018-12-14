@@ -10,7 +10,7 @@ Version: 1.1.6.7
 Text Domain: wooswipe
 */
 
-/*  Copyright 2010  Dean Oakley  (email : dean@thriveweb.com.au)
+/*  Copyright 2018  Dean Oakley  (email : dean@thriveweb.com.au)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -237,6 +237,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
 						<?php
+						if(!function_exists('addImageThumbnail')){
 							function addImageThumbnail($attachment_id, $zoomed_image_size){
 								global $post;
 								$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
@@ -249,6 +250,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 									</li>',
 									$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID );
 							}
+						}
 
 							/// add main image
 							if ( has_post_thumbnail() ) {
