@@ -233,13 +233,15 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			$attachment_ids = $product->get_gallery_attachment_ids();
 		}
 
-		if ( $attachment_ids ) { ?>
+		?>
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
 						<?php
 						$product_id = $post->ID;
 						$product = new WC_Product_Variable( $product_id );
 						$variations = $product->get_available_variations();
+
+						
 
 						if(!function_exists('addImageThumbnail')){
 							function addImageThumbnail($attachment_id, $zoomed_image_size){
@@ -284,7 +286,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 
 			</div>
 			<?php do_action( 'wooswipe_after_thumbs' ); ?>
-		<?php }
+		<?php 
 		// Hook After Wooswipe
 		do_action( 'wooswipe_after_main' );?>
 	</div>
