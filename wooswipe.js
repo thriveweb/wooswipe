@@ -118,7 +118,6 @@
         e.preventDefault();
         var index = ind ? parseInt(ind) : 0;
 
-        console.log(index);
         openPswp(index);
       });
     }
