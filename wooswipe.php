@@ -233,10 +233,16 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			$attachment_ids = $product->get_gallery_attachment_ids();
 		}
 
-		if ( $attachment_ids ) { ?>
+		?>
 			<div class="thumbnails">
 					<ul class="thumbnail-nav">
 						<?php
+						$productType = $product->get_type();
+						$productVariation = new WC_Product_Variable( $post->ID );
+						$variations = $productVariation->get_available_variations();
+
+						
+
 						if(!function_exists('addImageThumbnail')){
 							function addImageThumbnail($attachment_id, $zoomed_image_size){
 								global $post;
@@ -258,17 +264,29 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 								addImageThumbnail($attachment_id, $zoomed_image_size);
 							}
 
+							
+
 							//add thumbnails
 							foreach ( $attachment_ids as $attachment_id ) {
 								$image_link = wp_get_attachment_url( $attachment_id );
 								if ( !$image_link ) { continue; }
 								addImageThumbnail($attachment_id, $zoomed_image_size);
-							} ?>
+							} 
+
+							if($productType == 'variable') {
+								foreach ( $variations as $variation ) {
+									$attachment_id = $variation['image_id'];
+									$image_link = wp_get_attachment_url( $attachment_id );
+									if ( !$image_link ) { continue; }
+									addImageThumbnail($attachment_id, $zoomed_image_size);
+								}
+							}
+						?>
 					</ul>
 
 			</div>
 			<?php do_action( 'wooswipe_after_thumbs' ); ?>
-		<?php }
+		<?php 
 		// Hook After Wooswipe
 		do_action( 'wooswipe_after_main' );?>
 	</div>

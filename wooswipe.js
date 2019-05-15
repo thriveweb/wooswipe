@@ -117,10 +117,21 @@
         var ind = $(this).find('img').attr('data-ind');
         e.preventDefault();
         var index = ind ? parseInt(ind) : 0;
+
         openPswp(index);
       });
     }
 
+    $(document).on('change','.variations select',function(){
+      var imgsrc = $('#wooswipe a').attr('href');
+      var srcind = 0;
+      $('.thumbnails .thumb').each(function() {
+          if(imgsrc == $(this).attr('data-hq')){
+            srcind = $(this).parent().attr('data-slick-index');
+          }
+      });
+      $('#wooswipe img').attr('data-ind',srcind);
+    });
+     
   })();
-
 })(document, window, jQuery);
