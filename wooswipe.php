@@ -258,29 +258,59 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 							}
 						}
 
-							/// add main image
-							if ( has_post_thumbnail() ) {
-								$attachment_id 	= get_post_thumbnail_id();
-								addImageThumbnail($attachment_id, $zoomed_image_size);
-							}
-
 							
 
-							//add thumbnails
-							foreach ( $attachment_ids as $attachment_id ) {
-								$image_link = wp_get_attachment_url( $attachment_id );
-								if ( !$image_link ) { continue; }
-								addImageThumbnail($attachment_id, $zoomed_image_size);
-							} 
-
 							if($productType == 'variable') {
+								
+								$imagesArray = array();
+								$variationArray = array();
+								$featuredArray = array();
+								
+								/// add main image
+								if ( has_post_thumbnail() ) {
+									$featuredArray[] = get_post_thumbnail_id();
+								}
+
+								/// add gallery image
+								foreach ( $attachment_ids as $attachment_id ) {
+									$imagesArray[] = $attachment_id;
+								}
+
+								/// add variation image
 								foreach ( $variations as $variation ) {
 									$attachment_id = $variation['image_id'];
+									$variationArray[] = $attachment_id;
+								}
+
+								$result = array_unique(array_merge($featuredArray,$imagesArray,$variationArray));
+
+								$finalArray = array_values(array_filter($result));
+
+
+								for($i=0;$i<count($finalArray);$i++) {
+									$image_link = wp_get_attachment_url( $finalArray[$i] );
+									if ( !$image_link ) { continue; }
+									addImageThumbnail($finalArray[$i], $zoomed_image_size);
+								}
+
+							} else {
+								
+								/// add main image
+								if ( has_post_thumbnail() ) {
+									$attachment_id 	= get_post_thumbnail_id();
+									addImageThumbnail($attachment_id, $zoomed_image_size);
+								}
+
+								//add thumbnails
+								foreach ( $attachment_ids as $attachment_id ) {
 									$image_link = wp_get_attachment_url( $attachment_id );
 									if ( !$image_link ) { continue; }
 									addImageThumbnail($attachment_id, $zoomed_image_size);
-								}
+								} 
 							}
+
+
+							
 						?>
 					</ul>
 

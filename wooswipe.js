@@ -8,25 +8,22 @@
       focusOnSelect: false,
       infinite: false,
       slidesToShow: 5,
-      slidesToScroll: 5,
+      slidesToScroll: 1,
       respondTo: 'slider',
       responsive: [{
         breakpoint: 680,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 5
+          slidesToShow: 5
         }
       }, {
         breakpoint: 520,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4
+          slidesToShow: 4
         }
       }, {
         breakpoint: 420,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3
+          slidesToShow: 3
         }
       }]
 
@@ -117,7 +114,6 @@
         var ind = $(this).find('img').attr('data-ind');
         e.preventDefault();
         var index = ind ? parseInt(ind) : 0;
-
         openPswp(index);
       });
     }
