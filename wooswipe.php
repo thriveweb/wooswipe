@@ -30,121 +30,21 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 	die('Illegal Entry');
 }
 
-//============================== wooswipe options ========================//
-class wooswipe_plugin_options {
+///////////
+// Backend options. 
+require_once(plugin_dir_path(__FILE__) . 'class-options.php');
 
-	//Defaults
-	public static function WooSwipe_getOptions() {
+wooswipe_plugin_options::init();
 
-		//Pull from WP options database table
-		$options = get_option('wooswipe_options');
-
-		if (!is_array($options)) {
-
-			$options['white_theme'] = false;
-
-			update_option('wooswipe_options', $options);
-		}
-		return $options;
-	}
-
-
-	public static function update() {
-
-
-		if(isset($_POST['wooswipe_save'])) {
-
-			$options = wooswipe_plugin_options::WooSwipe_getOptions();
-
-			if (isset($_POST['white_theme'])) {
-				$options['white_theme'] = (bool)true;
-			} else {
-				$options['white_theme'] = (bool)false;
-			}
-
-			update_option('wooswipe_options', $options);
-
-		} else {
-			wooswipe_plugin_options::WooSwipe_getOptions();
-		}
-
-
-	}
-
-
-	public static function display() {
-
-		$options = wooswipe_plugin_options::WooSwipe_getOptions();
-		?>
-
-		<div id="wooswipe_admin" class="wrap">
-
-			<h2>WooSwipe Options</h2>
-
-			<p>WooSwipe is a WooCommerce gallery plugin for WordPress built using Photoswipe from  Dmitry Semenov.  <a href="http://photoswipe.com/">Photoswipe</a> and <a href="http://kenwheeler.github.io/slick/"> Slick</a> </p>
-
-			<p>More options coming soon. Edit your image sizes <a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=products&section=display', 'http' ); ?> "> here </a></p>
-
-			<p style="font-style:italic; font-weight:normal; color:grey " >Please note: Images that are already on the server will not change size until you regenerate the thumbnails. Use <a title="http://wordpress.org/extend/plugins/ajax-thumbnail-rebuild/" href="http://wordpress.org/extend/plugins/ajax-thumbnail-rebuild/">AJAX thumbnail rebuild</a> </p>
-
-			<form method="post" action="#" enctype="multipart/form-data">
-
-				<div class="ps_border" ></div>
-
-
-				<p><label><input name="white_theme" type="checkbox" value="checkbox" <?php if($options['white_theme']) echo "checked='checked'"; ?> /> Use white theme?</label></p>
-
-
-				<div class="ps_border" ></div>
-
-				<p><input class="button-primary" type="submit" name="wooswipe_save" value="Save Changes" /></p>
-
-			</form>
-
-
-		</div>
-
-		<?php
-	}
-}
-
-
-function WooSwipe_getOption($option) {
-	global $mytheme;
-	return $mytheme->option[$option];
-}
+///////////
+// Functions 
+require_once(plugin_dir_path(__FILE__) . 'inc-functions.php');
 
 function wooswipe_using_woocommerce() {
 	return in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
 }
 
-// register functions
-add_action('admin_menu', array('wooswipe_plugin_options', 'update'));
-
-$options = get_option('wooswipe_options');
-
-///////////
-//Admin CSS
-function wooswipe_register_head() {
-
-    $url = plugins_url( 'admin.css', __FILE__ );
-
-    echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
-}
-add_action('admin_head', 'wooswipe_register_head');
-
-///////////
-//Sub Menu
-function register_wooswipe_custom_submenu_page() {
-    add_submenu_page( 'woocommerce', 'WooSwipe', 'WooSwipe', 'manage_options', 'wooswipe-custom-submenu-page', array('wooswipe_plugin_options', 'display') );
-}
-function wooswipe_custom_submenu_page_callback() {
-    echo '<h3>WooSwipe Custom Submenu Page</h3>';
-}
-add_action('admin_menu', 'register_wooswipe_custom_submenu_page',99);
-
-
-//============================== insert HTML header tag ========================//
+//============================== Enque files ==============================//
 
 function wooswipe_scripts_method() {
 
@@ -170,22 +70,8 @@ function wooswipe_scripts_method() {
 }
 add_action('wp_enqueue_scripts', 'wooswipe_scripts_method');
 
-///////////////////////
-// remove woo lightbox
-add_action( 'wp_print_scripts', 'wooswipe_deregister_javascript', 100 );
-function wooswipe_deregister_javascript() {
-	wp_deregister_script( 'prettyPhoto' );
-	wp_deregister_script( 'prettyPhoto-init' );
-}
-add_action( 'wp_print_styles', 'wooswipe_deregister_styles', 100 );
-function wooswipe_deregister_styles() {
-	wp_deregister_style( 'woocommerce_prettyPhoto_css' );
-}
 
-///////////////////////
-//override Woo Gallery
-remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-add_action( 'woocommerce_before_single_product_summary', 'wooswipe_woocommerce_show_product_thumbnails', 20 );
+
 
 function wooswipe_woocommerce_show_product_thumbnails(){
 	global $post, $woocommerce, $product; ?>
@@ -321,43 +207,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 		do_action( 'wooswipe_after_main' );?>
 	</div>
 
-	<!-- PSWP -->
-	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="pswp__bg"></div>
-	    <div class="pswp__scroll-wrap">
-	        <div class="pswp__container">
-	            <div class="pswp__item"></div>
-	            <div class="pswp__item"></div>
-	            <div class="pswp__item"></div>
-	        </div>
-	        <div class="pswp__ui pswp__ui--hidden">
-	            <div class="pswp__top-bar">
-	                <div class="pswp__counter"></div>
-	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-	                <button class="pswp__button pswp__button--share" title="Share"></button>
-	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-	                <div class="pswp__preloader">
-	                    <div class="pswp__preloader__icn">
-	                      <div class="pswp__preloader__cut">
-	                        <div class="pswp__preloader__donut"></div>
-	                      </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-	                <div class="pswp__share-tooltip"></div>
-	            </div>
-	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-	            </button>
-	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-	            </button>
-	            <div class="pswp__caption">
-	                <div class="pswp__caption__center"></div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+	<?php include_once('inc-photoswipe-footer.php'); ?>
 
 <?php
 }
