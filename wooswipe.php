@@ -110,7 +110,18 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 				</div>',
 				$image_link, $image_title, $image ), $post->ID );
 		} else {
-			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), __( 'Placeholder', 'woocommerce' ) ), $post->ID );
+			$placeholder_image = get_option( 'woocommerce_placeholder_image', 0 );
+			$placeholder_meta = wp_get_attachment_metadata( $placeholder_image );
+			echo apply_filters( 'woocommerce_single_product_image_html', 
+				sprintf( 
+					'<img src="%s" alt="%s" data-hq="%s" data-w="%s" data-h="%s" title="" />', 
+					wc_placeholder_img_src(), 
+					__( 'Placeholder', 'woocommerce' ),
+					wc_placeholder_img_src(),
+					$placeholder_meta['width'],
+					$placeholder_meta['height']
+				),
+			$post->ID );
 		}
 
 		if (method_exists($product, 'get_gallery_image_ids')) {
