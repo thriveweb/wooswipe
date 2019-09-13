@@ -38,13 +38,9 @@ class wooswipe_plugin_options {
 
 		} else {
 			// added for plugin updates
-			if(!empty($options['white_theme']) {
-				$options['white_theme'] = false;
-			}
-			if(!empty($options['pinterest']) {
-				$options['pinterest'] = false;
-			}
-						
+			if(!empty($options['white_theme']) $options['white_theme'] = false;
+			if(!empty($options['pinterest']) $options['pinterest'] = false;
+			 			
 			update_option('wooswipe_options', $options);
 
 		}
