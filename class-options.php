@@ -82,7 +82,7 @@ class wooswipe_plugin_options {
 
 		<div id="wooswipe_admin" class="wrap">
 			<div class="wooswipe_admin-main">
-				<h2>WooSwipe Options</h2>
+				<h1>WooSwipe Options</h1>
 
 				<p>WooSwipe is a <a target="_blank" rel="noreferrer" href="https://wordpress.org/plugins/wooswipe/">WooCommerce gallery plugin for WordPress</a> built using Photoswipe from  Dmitry Semenov.  <a href="http://photoswipe.com/">Photoswipe</a> and <a href="http://kenwheeler.github.io/slick/"> Slick</a> </p>
 
@@ -116,7 +116,7 @@ class wooswipe_plugin_options {
 					<img src="<?= plugins_url() . '/wooswipe/images/photoswipe-mansonry-2.0.jpg'; ?>" alt="PhotoSwipe" width="100%" height="auto" />
 					<p>Explore the brand new PhotoSwipe Masonry 2.0 gallery, based off Dmitry Semenov's PhotoSwipe plugin.</p>
 					<p><a class="btn" target="_blank" rel="noreferrer" href="https://thriveweb.com.au/the-lab/photoswipe-v2/">Read more</a></p>
-					<p>Wooswipe built by Thrive digital
+					<p>Wooswipe built by Thrive Digital
 						<br>
 						<a target="_blank" rel="noreferrer" href="https://thriveweb.com.au">Web Design Gold Coast.</a>
 					</p>
