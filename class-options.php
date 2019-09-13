@@ -30,15 +30,24 @@ class wooswipe_plugin_options {
 	public static function WooSwipe_getOptions() {
 
 		//Pull from WP options database table
-		 $options = get_option('wooswipe_options');
+		$options = get_option('wooswipe_options');
 
 		if (!is_array($options)) {
 
 			$options['white_theme'] = false;
-
 			$options['pinterest'] = false;
-
 			update_option('wooswipe_options', $options);
+
+		} else {
+			// added for plugin updates
+			if(!isset($options['white_theme']) {
+				$options['white_theme'] = false;
+			}
+			if(!isset($options['pinterest']) {
+				$options['pinterest'] = false;
+			}
+			update_option('wooswipe_options', $options);
+
 		}
 		return $options;
 	}
