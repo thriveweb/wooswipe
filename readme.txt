@@ -1,12 +1,12 @@
 === WooSwipe WooCommerce Gallery ===
-Contributors: deanoakley, jinksi
+Contributors: deanoakley, jinksi, Firthir
 Author: Web Design Gold Coast
 Author URI: https://thriveweb.com.au/
 Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery, responsive
 Requires at least: 3.0
 Tested up to: 5.2.1
-Stable tag: 1.1.6.9
+Stable tag: 1.1.7.0
 
 A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov and Slick carousel.
 
@@ -21,6 +21,7 @@ WooSwipe should work out of the box with your WooCommerce gallery settings. Simp
 * Keyboard control
 * Full image size
 * 2 colour options
+* Pinit to Pinterest option
 
 Planned Features:
 * Show titles or captions
@@ -51,6 +52,10 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
+
+= 1.1.7.0 =
+* Add Pinterest option
+
 
 = 1.1.6.9 =
 * Variation image bug fix https://github.com/thriveweb/wooswipe/issues/27
