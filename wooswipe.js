@@ -5,7 +5,10 @@
     // see wp_enqueue_script wp_localize_script wooswipe.php
     var plugin_path = wooswipe_wp_plugin_path.templateUrl + "/";
     var addPintrest = addpin;
-    console.log(addpin);
+
+    var firstUrl = $(".single-product-main-image img").attr("src");
+    var alt = $(".single-product-main-image img").attr("alt");
+    var link = window.location.href;
 
     // run this one thumbnail click
     function pinit(url) {
@@ -21,9 +24,6 @@
     }
 
     if (addPintrest === "true") {
-      var firstUrl = $(".single-product-main-image img").attr("src");
-      var alt = $(".single-product-main-image img").attr("alt");
-      var link = window.location.href;
       // set up first pin
       $("#wooswipe").prepend(
         '<a class="wooswipe-pinit" target="_blank" href="https://www.pinterest.com/pin/create/button/?media=' +

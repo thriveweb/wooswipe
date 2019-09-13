@@ -1,4 +1,14 @@
-#wooswipe .thumbnails{
+#wooswipe {
+  position: relative;
+}
+
+#wooswipe .wooswipe-pinit {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#wooswipe .thumbnails {
   list-style: none;
   height: 100px;
   overflow: hidden;
