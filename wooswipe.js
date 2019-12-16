@@ -34,7 +34,7 @@
           alt +
           '"><img src="' +
           plugin_path +
-          '/pinit/pinit-red.png" /></a>'
+          '/pinit/pinterest.svg" /></a>'
       );
       // popit new window
       $(".wooswipe-pinit").click(function(e) {
