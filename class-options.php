@@ -86,7 +86,7 @@ class wooswipe_plugin_options {
 
 				<p>WooSwipe is a <a target="_blank" rel="noreferrer" href="https://wordpress.org/plugins/wooswipe/">WooCommerce gallery plugin for WordPress</a> built using Photoswipe from  Dmitry Semenov.  <a href="http://photoswipe.com/">Photoswipe</a> and <a href="http://kenwheeler.github.io/slick/"> Slick</a> </p>
 
-				<p>Edit your image sizes <a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=products&section=display', 'http' ); ?> "> here </a></p>
+				<p>You can edit your thumbnail image sizes in <b>Appearance › Customize › WooCommerce › Product Images</b> unless your theme registers it's own sizes. </a></p>
 
 				<p style="font-style:italic; font-weight:normal; color:grey " >Please note: Images that are already on the server will not change size until you regenerate the thumbnails. Use <a title="http://wordpress.org/extend/plugins/ajax-thumbnail-rebuild/" href="http://wordpress.org/extend/plugins/ajax-thumbnail-rebuild/">AJAX thumbnail rebuild</a> </p>
 
