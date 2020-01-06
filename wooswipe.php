@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Thrive Website Design
 Author URI: https://thriveweb.com.au/
-Version: 1.1.8.5
+Version: 1.1.8.6
 Text Domain: wooswipe
 */
 
@@ -141,7 +141,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 			if(!function_exists('addImageThumbnail')){
 				function addImageThumbnail($attachment_id, $zoomed_image_size){
 					global $post;
-					$image       	= wp_get_attachment_image( $attachment_id, 'woocommerce_thumbnail' );
+					$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
 					$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 					$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
 
@@ -227,10 +227,6 @@ function wooswipe_theme_setup() {
 	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
-
-	remove_theme_support( 'woocommerce', array(
-		'gallery_thumbnail_image_width',
-) );
 
 }
 
