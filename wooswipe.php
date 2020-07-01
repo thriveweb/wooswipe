@@ -80,8 +80,6 @@ function wooswipe_scripts_method() {
 add_action('wp_enqueue_scripts', 'wooswipe_scripts_method');
 
 
-
-
 function wooswipe_woocommerce_show_product_thumbnails(){
 	global $post, $woocommerce, $product; ?>
 
@@ -139,7 +137,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 
 
 			if(!function_exists('addImageThumbnail')){
-				function addImageThumbnail($attachment_id, $zoomed_image_size){
+				function addImageThumbnail($attachment_id, $zoomed_image_size, $variation_id){
 					global $post;
 					$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
 					$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
@@ -147,20 +145,19 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 
 					echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
 					<li>
-					<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
+					<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s" data-vid="%s" >%s</div>
 					</li>',
-					$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID );
+					$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $variation_id ? $variation_id : '0', $image ), $attachment_id, $post->ID );
 				}
 			}
-
-
 
 			if($productType == 'variable') {
 
 				$imagesArray = array();
 				$variationArray = array();
 				$featuredArray = array();
-
+				$imagesVariations = array();
+				
 				/// add main image
 				if ( has_post_thumbnail() ) {
 					$featuredArray[] = get_post_thumbnail_id();
@@ -175,6 +172,7 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 				foreach ( $variations as $variation ) {
 					$attachment_id = $variation['image_id'];
 					$variationArray[] = $attachment_id;
+					$imagesVariations[ 'at_' . $attachment_id ] = $variation['variation_id'];
 				}
 
 				$result = array_unique(array_merge($featuredArray,$imagesArray,$variationArray));
@@ -185,7 +183,8 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 				for($i=0;$i<count($finalArray);$i++) {
 					$image_link = wp_get_attachment_url( $finalArray[$i] );
 					if ( !$image_link ) { continue; }
-					addImageThumbnail($finalArray[$i], $zoomed_image_size);
+					$variation_id = $imagesVariations[  'at_' . $finalArray[$i] ];
+					addImageThumbnail($finalArray[$i], $zoomed_image_size, $variation_id) ;
 				}
 
 			} else {
@@ -203,8 +202,6 @@ function wooswipe_woocommerce_show_product_thumbnails(){
 					addImageThumbnail($attachment_id, $zoomed_image_size);
 				}
 			}
-
-
 
 			?>
 		</ul>
