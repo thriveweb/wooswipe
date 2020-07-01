@@ -183,6 +183,7 @@
       });
     }
 
+    // on variation change set popup index to changed variation
     $(document).on("change", ".variations select", function() {
       var imgsrc = $("#wooswipe a").attr("href");
       var srcind = 0;
@@ -195,5 +196,20 @@
       });
       $("#wooswipe img").attr("data-ind", srcind);
     });
+
+    // compatibility for "WooCommerce Variation Swatches and Photo". On swatch change set popup index to changed variation
+    if ($(".variations .swatch-control").length > 0) {
+        $(".variations_form").addClass('has-swatches');
+        $(".variations_form.has-swatches").on('change', function (e) {
+            var imgsrc = $("#wooswipe a").attr("href");
+            var srcind = 0;
+            $(".thumbnails .thumb").each(function () {
+                if (imgsrc == $(this).attr("data-hq")) {
+                    srcind = $(this).parent().attr("data-slick-index");
+                }
+            });
+            $("#wooswipe img").attr("data-ind", srcind);
+        });
+    }
   })();
 })(document, window, jQuery);
