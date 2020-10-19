@@ -6,7 +6,7 @@ Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery, responsive
 Requires at least: 3.0
 Tested up to: 5.4.2
-Stable tag: 1.1.8.9
+Stable tag: 1.1.8.10
 
 A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov and Slick carousel.
 
@@ -14,7 +14,7 @@ A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov and Slic
 
 A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov. [photoswipe](http://photoswipe.com/ "PhotoSwipe") and [slick carousel](http://kenwheeler.github.io/slick/ "Slick Carousel").
 
-WooSwipe should work out of the box with your WooCommerce gallery settings. Simply adjust your image sizes in WooCommerce > Settings > Products > Display. You may need to rebuild your thumbnails when changing image sizes.
+WooSwipe should work out of the box with your WooCommerce gallery settings. Simply adjust your image sizes in Appearance > Customize > WooCommerce > Product Images. You may need to rebuild your thumbnails when changing image sizes. (Note: If your theme declares theme image sizes then you may not be able to change them.)
 
 * Responsive
 * Very Mobile Friendly
@@ -52,6 +52,9 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
+
+= 1.1.8.10 =
+* Readme updated with latest way to adjust image sizes
 
 = 1.1.8.9 =
 * Revert PR38
