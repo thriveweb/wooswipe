@@ -18,3 +18,8 @@
   max-height: 100%;
   padding: 0;
 }
+
+/* Fix for some themes */
+.woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n+2){
+  width: 100%;
+}
