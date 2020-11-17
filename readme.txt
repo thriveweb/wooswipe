@@ -53,6 +53,9 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
 
+= 1.1.9 =
+* Layout fix and image size fix
+
 = 1.1.8.11 =
 * Version bump slick.js 1.5.7 -> 1.8.1
 
