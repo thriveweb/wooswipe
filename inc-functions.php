@@ -5,6 +5,12 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 }
 
 ///////////////////////
+// keep the image size settings. Most themes seem to override it. 
+remove_theme_support( 'woocommerce',
+	array( 'thumbnail_image_width', 'gallery_thumbnail_image_width', 'single_image_width' )
+);
+
+///////////////////////
 // remove woo lightbox
 add_action( 'wp_print_scripts', 'wooswipe_deregister_javascript', 100 );
 function wooswipe_deregister_javascript() {
