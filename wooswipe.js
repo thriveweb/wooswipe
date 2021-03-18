@@ -4,7 +4,8 @@
   (function productThumbnails() {
     // see wp_enqueue_script wp_localize_script wooswipe.php
     var plugin_path = wooswipe_wp_plugin_path.templateUrl + "/";
-    var addPintrest = addpin;
+
+    var addPintrest = addpin['addpin'];
 
     var firstUrl = $(".single-product-main-image img").attr("src");
     var alt = $(".single-product-main-image img").attr("alt");
@@ -23,7 +24,7 @@
       );
     }
 
-    if (addPintrest === "true") {
+    if (addPintrest == true) {
       // set up first pin
       $("#wooswipe").prepend(
         '<a class="wooswipe-pinit" target="_blank" href="https://www.pinterest.com/pin/create/button/?media=' +
@@ -86,7 +87,7 @@
       $(".woocommerce-main-image").wrap(
         '<div class="single-product-main-image"></div>'
       );
-      if (addPintrest === "true") {
+      if (addPintrest == true) {
         pinit(mainImage[0].src);
       }
     }
