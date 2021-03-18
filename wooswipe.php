@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Thrive Website Design
 Author URI: https://thriveweb.com.au/
-Version: 1.1.9
+Version: 1.1.8.11
 Text Domain: wooswipe
 */
 
@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 	die('Illegal Entry');
 }
+
+remove_theme_support( 'woocommerce',
+	array( 'thumbnail_image_width', 'gallery_thumbnail_image_width', 'single_image_width' )
+);
 
 ///////////
 // Backend options.
@@ -70,9 +74,9 @@ function wooswipe_scripts_method() {
 		$template_Url = array( 'templateUrl' => $wooswipe_wp_plugin_path );
 		wp_localize_script( 'wooswipe-js', 'wooswipe_wp_plugin_path', $template_Url );
 		if($options['pinterest']) {
-			$pin = 'true';
+			$pin = array( 'addpin' => true );
 		} else {
-			$pin = 'false';
+			$pin = array( 'addpin' => false );
 		}
 		wp_localize_script( 'wooswipe-js', 'addpin', $pin );
 	}
