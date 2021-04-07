@@ -11,6 +11,8 @@
     var alt = $(".single-product-main-image img").attr("alt");
     var link = window.location.href;
 
+
+
     // run this one thumbnail click
     function pinit(url) {
       $(".wooswipe-pinit").attr(
@@ -24,7 +26,7 @@
       );
     }
 
-    if (addPintrest == true) {
+    if (addPintrest) {
       // set up first pin
       $("#wooswipe").prepend(
         '<a class="wooswipe-pinit" target="_blank" href="https://www.pinterest.com/pin/create/button/?media=' +
@@ -87,7 +89,7 @@
       $(".woocommerce-main-image").wrap(
         '<div class="single-product-main-image"></div>'
       );
-      if (addPintrest == true) {
+      if (addPintrest) {
         pinit(mainImage[0].src);
       }
     }
@@ -112,7 +114,7 @@
         .attr("data-hq", hq)
         .attr("data-w", hqw)
         .attr("data-h", hqh);
-      if (addPintrest === "true") {
+      if (addPintrest) {
         pinit(med);
       }
     });
