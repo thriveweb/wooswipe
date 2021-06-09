@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Thrive Website Design
 Author URI: https://thriveweb.com.au/
-Version: 1.1.11
+Version: 1.1.12
 Text Domain: wooswipe
 */
 
@@ -55,7 +55,7 @@ function wooswipe_scripts_method() {
 	$wooswipe_wp_plugin_path =  plugins_url() . '/wooswipe' ;
 	$options = get_option('wooswipe_options');
 
-	if ( is_woocommerce() && is_product() ) {
+	if ((is_woocommerce() && is_product()) || wc_post_content_has_shortcode('product_page')) {
 		wp_enqueue_style( 'pswp-css', $wooswipe_wp_plugin_path . '/pswp/photoswipe.css'  );
 
 		if($options['white_theme']) wp_enqueue_style( 'white_theme', $wooswipe_wp_plugin_path . '/pswp/white-skin/skin.css'  );

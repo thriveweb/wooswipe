@@ -5,8 +5,8 @@ Author URI: https://thriveweb.com.au/
 Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery, responsive
 Requires at least: 3.0
-Tested up to: 5.7
-Stable tag: 1.1.11
+Tested up to: 5.7.2
+Stable tag: 1.1.12
 
 A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov and Slick carousel.
 
@@ -52,6 +52,11 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
+
+= 1.1.12 =
+* Fixed issue where lightbox opens with wrong image if changed via variation selector due to pinterest links (https://wordpress.org/support/topic/wrong-image-in-lightbox-when-variation-is-selected/)
+* Add "product_page" shortcode support (https://github.com/thriveweb/wooswipe/issues/20)
+* Tested with WP 5.7.2 + WC 5.4.0
 
 = 1.1.11 =
 * Fix Pinterest select image 
