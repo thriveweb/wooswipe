@@ -27,7 +27,7 @@
         if (addPintrest) {
             // set up first pin
             $("#wooswipe").prepend(
-                '<a class="wooswipe-pinit" target="_blank" href="https://www.pinterest.com/pin/create/button/?media=' +
+                '<a class="wooswipe-pinit" target="_blank" rel="noreferrer noopener" href="https://www.pinterest.com/pin/create/button/?media=' +
                 firstUrl +
                 "&url=" +
                 link +
@@ -35,7 +35,7 @@
                 encodeURI(alt) +
                 '"><img src="' +
                 plugin_path +
-                '/pinit/pinterest.svg" /></a>'
+                '/pinit/pinterest.svg" alt="Pinterest" /></a>'
             );
             // popit new window
             $(".wooswipe-pinit").click(function(e) {

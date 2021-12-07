@@ -55,6 +55,8 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 = 1.1.13 =
 * Added option for hiding thumbnails when no product gallery or product variation image is available
+* Remove lazy loading from main image (https://github.com/thriveweb/wooswipe/issues/40)
+* Accessibility fixes
 * Tested with WP 5.8.2 + WC 5.9.0
 
 = 1.1.12 =

@@ -106,6 +106,7 @@ function wooswipe_woocommerce_show_product_thumbnails() {
                 'data-hq' => $hq[0],
                 'data-w' => $hq[1],
                 'data-h' => $hq[2],
+                'loading' => false,
             ));
 
             if (method_exists($product, 'get_gallery_image_ids')) {
