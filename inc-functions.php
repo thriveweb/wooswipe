@@ -28,12 +28,12 @@ function wooswipe_deregister_styles() {
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 add_action( 'woocommerce_before_single_product_summary', 'wooswipe_woocommerce_show_product_thumbnails', 20 );
 
-function remove_image_zoom_support() {
+function wooswipe_remove_image_zoom_support() {
     remove_theme_support( 'wc-product-gallery-zoom' );
     remove_theme_support( 'wc-product-gallery-lightbox' );
     remove_theme_support( 'wc-product-gallery-slider' );
 }
-add_action( 'wp', 'remove_image_zoom_support', 100 );
+add_action( 'wp', 'wooswipe_remove_image_zoom_support', 100 );
 
 ///////////
 //Sub Menu
