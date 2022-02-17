@@ -39,6 +39,9 @@ class wooswipe_plugin_options {
             if(!isset($options['hide_thumbnails'])) {
                 $options['hide_thumbnails'] = false;
             }
+            if(!isset($options['product_main_slider'])) {
+                $options['product_main_slider'] = false;
+            }
             update_option('wooswipe_options', $options);
         }
         return $options;
@@ -65,6 +68,12 @@ class wooswipe_plugin_options {
                 $options['hide_thumbnails'] = (bool)true;
             } else {
                 $options['hide_thumbnails'] = (bool)false;
+            }
+
+            if (isset($_POST['product_main_slider'])) {
+                $options['product_main_slider'] = (bool)true;
+            } else {
+                $options['product_main_slider'] = (bool)false;
             }
 
             update_option('wooswipe_options', $options);
@@ -97,6 +106,9 @@ class wooswipe_plugin_options {
                     <div class="ps_border" ></div>
                     <p><label><input name="hide_thumbnails" type="checkbox" value="checkbox" <?php if($options['hide_thumbnails']) echo "checked='checked'"; ?> /> Hide thumbnails if there are no product gallery or variation images.</label></p>
 
+                    <div class="ps_border" ></div>
+                    <p><label><input name="product_main_slider" type="checkbox" value="checkbox" <?php if($options['product_main_slider']) echo "checked='checked'"; ?> /> Add slider to Product main Image?</label></p>
+                    
                     <div class="ps_border" ></div>
                     <p><input class="button-primary" type="submit" name="wooswipe_save" value="Save Changes" /></p>
 

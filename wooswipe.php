@@ -66,16 +66,28 @@ function wooswipe_scripts_method() {
 		wp_enqueue_script( 'slick', $wooswipe_wp_plugin_path .'/slick/slick.min.js', null, null, true );
 
 		wp_enqueue_style( 'wooswipe-css', $wooswipe_wp_plugin_path . '/wooswipe.css' );
-		wp_enqueue_script( 'wooswipe-js', $wooswipe_wp_plugin_path .'/wooswipe.js', null, null, true );
+		
 		//after wp_enqueue_script
 		$template_Url = array( 'templateUrl' => $wooswipe_wp_plugin_path );
-		wp_localize_script( 'wooswipe-js', 'wooswipe_wp_plugin_path', $template_Url );
+		$wooswipe_data = array();
 		if($options['pinterest']) {
-			$pin = array( 'addpin' => true );
+			$wooswipe_data = array( 'addpin' => true );
 		} else {
-			$pin = array( 'addpin' => false );
+			$wooswipe_data = array( 'addpin' => false );
 		}
-		wp_localize_script( 'wooswipe-js', 'addpin', $pin );
+        
+        if($options['product_main_slider'] == true) {
+            $wooswipe_data['product_main_slider'] =  true;            
+            wp_enqueue_script( 'wooswipe-main-image-swipe-js', $wooswipe_wp_plugin_path .'/wooswipe-main_image_swipe.js', null, null, true );
+            wp_localize_script( 'wooswipe-main-image-swipe-js', 'wooswipe_wp_plugin_path', $template_Url );
+            wp_localize_script( 'wooswipe-main-image-swipe-js', 'wooswipe_data', $wooswipe_data );
+        }else{
+            $wooswipe_data['product_main_slider'] =  false;  
+            wp_enqueue_script( 'wooswipe-js', $wooswipe_wp_plugin_path .'/wooswipe.js', null, null, true );
+            wp_localize_script( 'wooswipe-js', 'wooswipe_wp_plugin_path', $template_Url );
+            wp_localize_script( 'wooswipe-js', 'wooswipe_data', $wooswipe_data );
+        }
+
 	}
 }
 add_action('wp_enqueue_scripts', 'wooswipe_scripts_method');
@@ -90,7 +102,7 @@ function wooswipe_woocommerce_show_product_thumbnails() {
     $wooswipe_options = get_option('wooswipe_options'); ?>
 
 	<div id="wooswipe" class="images">
-
+        <input type="hidden" name="main-image-swiper" class="main-image-swiper" id="main_image_swiper" value="<?php esc_attr_e($wooswipe_options['product_main_slider'] == false ? 0 : 1);?>" />
         <?php
         //Hook Before Wooswipe
         do_action('wooswipe_before_main');
@@ -112,16 +124,18 @@ function wooswipe_woocommerce_show_product_thumbnails() {
             if (method_exists($product, 'get_gallery_image_ids')) {
                 $attachment_count = count($product->get_gallery_image_ids());
             } else {
-                $attachment_count = count($product->get_gallery_attachment_ids());
+                $attachment_count = count($product->get_gallery_image_ids());
             }
 
             $gallery = $attachment_count > 0 ? '[product-gallery]' : '';
 
+            if($wooswipe_options['product_main_slider'] == false):
             echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '
             <div class="woocommerce-product-gallery__image single-product-main-image">
             <a href="%s" alt="%s" class="woocommerce-main-image zoom" >%s</a>
             </div>',
             $image_link, $image_title, $image ), $post->ID );
+            endif;
         } else {
             echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), __( 'Placeholder', 'woocommerce' ) ), $post->ID );
         }
@@ -129,7 +143,7 @@ function wooswipe_woocommerce_show_product_thumbnails() {
         if (method_exists($product, 'get_gallery_image_ids')) {
             $attachment_ids = $product->get_gallery_image_ids();
         } else {
-            $attachment_ids = $product->get_gallery_attachment_ids();
+            $attachment_ids = $product->get_gallery_image_ids();
         }
 
         /* Build Thumbnails */
@@ -138,17 +152,29 @@ function wooswipe_woocommerce_show_product_thumbnails() {
         $variations = $productVariation->get_available_variations();
 
         if (!function_exists('addImageThumbnail')) {
-            function addImageThumbnail($attachment_id, $zoomed_image_size) {
+            function addImageThumbnail($attachment_id, $slideno, $zoomed_image_size) {
                 global $post;
-                $image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
                 $hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
                 $med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
+                // $image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
+                $srcset         = wp_get_attachment_image_srcset( $attachment_id, 'full' );
+                $sizes          = wp_get_attachment_image_sizes( $attachment_id, 'full' );
+                $image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail',false,
+                array(
+                    'title'     => esc_attr(get_the_title($attachment_id)),
+                    'loading'   => false,
+                    'alt'       => esc_attr(get_the_title($attachment_id)),
+                    'srcset'    => $srcset,
+                    'sizes'     => $sizes,
+                    'width'     => '100',
+                    'height'    => '100'
+                ));
 
                 echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
                 <li>
-                <div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
+                <div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s" data-attachment_id="main_image_%s" data-slide="%s">%s</div>
                 </li>',
-                $hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID );
+                $hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $attachment_id, $slideno, $image ), $attachment_id, $post->ID );
             }
         }
 
@@ -175,33 +201,54 @@ function wooswipe_woocommerce_show_product_thumbnails() {
 
             $result = array_unique(array_merge($featuredArray,$imagesArray,$variationArray));
             $finalArray = array_values(array_filter($result));
-            if (count($finalArray) > 1 || !$wooswipe_options['hide_thumbnails']) { ?>
+            if( $wooswipe_options['product_main_slider'] == true ):
+                
+                ob_start();
+                wooswipe_woocommerce_show_product_main_image_swiper($finalArray,$zoomed_image_size);
+                echo ob_get_clean();
+            endif;
+            if (count($finalArray) > 1 || !$wooswipe_options['hide_thumbnails']) { 
+            ?>
                 <div class="thumbnails">
                     <ul class="thumbnail-nav">
                         <?php for($i=0;$i<count($finalArray);$i++) {
                             $image_link = wp_get_attachment_url( $finalArray[$i] );
                             if ( !$image_link ) { continue; }
-                            addImageThumbnail($finalArray[$i], $zoomed_image_size);
+                            addImageThumbnail($finalArray[$i], $i, $zoomed_image_size);
                         } ?>
                     </ul>
                 </div>
             <?php }
         } else {
+            // add main image
+            if (has_post_thumbnail()) {
+                $featuredArray[] = get_post_thumbnail_id();
+            }
+            $result = array_unique(array_merge($featuredArray,$attachment_ids));
+            
+            $finalArray = array_values(array_filter($result));
+            
+            if($wooswipe_options['product_main_slider'] == true):                
+                ob_start();
+                wooswipe_woocommerce_show_product_main_image_swiper($finalArray,$zoomed_image_size);
+                echo ob_get_clean();
+            endif;
             if ($attachment_count > 0 || !$wooswipe_options['hide_thumbnails']) { ?>
                 <div class="thumbnails">
                     <ul class="thumbnail-nav">
                         <?php
                         // add main image
                         if ( has_post_thumbnail() ) {
+                            $i = 0;
                             $attachment_id 	= get_post_thumbnail_id();
-                            addImageThumbnail($attachment_id, $zoomed_image_size);
+                            addImageThumbnail($attachment_id, $i, $zoomed_image_size);
                         }
 
                         // add thumbnails
-                        foreach ($attachment_ids as $attachment_id) {
+                        foreach ($attachment_ids as $key => $attachment_id) {
                             $image_link = wp_get_attachment_url($attachment_id);
                             if (!$image_link) continue; 
-                            addImageThumbnail($attachment_id, $zoomed_image_size);
+                            addImageThumbnail($attachment_id, $key+1, $zoomed_image_size);
                         } ?>
                     </ul>
                 </div>
@@ -212,6 +259,53 @@ function wooswipe_woocommerce_show_product_thumbnails() {
     </div>
     
     <?php include_once('inc-photoswipe-footer.php');
+}
+
+/**
+ * Build Swiper for the Main Image
+ */
+function wooswipe_woocommerce_show_product_main_image_swiper($finalArray,$zoomed_image_size) { 
+     
+    ?>
+    <div class="single-product-main-image-wrap">
+                    <input type="hidden" class="woocommerce-product-gallery__image" value="none" />
+                    <ul class="single-product-main-image">
+                    <?php
+                    
+                    for($i=0;$i<count($finalArray);$i++) {
+                        global $post;
+                        $image_link     = wp_get_attachment_url( $finalArray[$i] );
+                        $image_title    = esc_attr(get_the_title($finalArray[$i]));
+                        $med            = wp_get_attachment_image_src( $finalArray[$i], 'shop_single' );
+                        $hq             = wp_get_attachment_image_src( $finalArray[$i], apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
+                        $srcset         = wp_get_attachment_image_srcset( $finalArray[$i], 'full' );
+                        $sizes          = wp_get_attachment_image_sizes( $finalArray[$i], 'full' );
+                        $image          = wp_get_attachment_image( $finalArray[$i], 'shop_single',false,
+                        array(
+                            'title'     => $image_title,
+                            'data-hq'   => $hq[0],
+                            'data-w'    => $hq[1],
+                            'data-h'    => $hq[2],
+                            'loading'   => false,
+                            'alt'       => $image_title,
+                            'srcset'    => $srcset,
+                            'sizes'     => $sizes,
+                            'id'        =>"main_image_".$finalArray[$i],
+                            "data-ind"  => $i
+                        ));
+                     
+                        if ( !$image_link ) { continue; }
+                        echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '
+                            <li>
+                            <a href="%s"  alt="%s" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s" class="woocommerce-main-image zoom thumb-big" >%s</a>
+                            </li>',
+                            $image_link,$image_title,$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $finalArray[$i]);
+                        }                
+                    ?>
+                    </ul>
+                </div>
+    <?php
+
 }
 
 function wooswipe_theme_setup() {

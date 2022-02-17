@@ -23,3 +23,23 @@
 .woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n+2){
   width: 100%;
 }
+
+#wooswipe .single-product-main-image-wrap .single-product-main-image {
+  margin-inline-end: 0px;
+  padding-inline-start: 0px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#wooswipe  .slick-prev:before,#wooswipe  .slick-next:before {
+  color: black;
+}
+
+#wooswipe .wooswipe-pinit.wooswipe-mainimagepin {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
