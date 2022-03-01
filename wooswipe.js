@@ -99,6 +99,8 @@
             e.preventDefault();
             var $this = $(this);
             var med = $this.attr("data-med");
+            var alt = $this.attr("data-title");
+            var title = $this.attr("data-title");
             var srcset = $this.attr("data-med");
             var width = $this.attr("data-medw");
             var height = $this.attr("data-medh");
@@ -118,7 +120,9 @@
                 .attr("data-hq", hq)
                 .attr("data-w", hqw)
                 .attr("data-h", hqh)
-                .attr("data-attachment_id", atid);
+                .attr("data-attachment_id", atid)
+                .attr("alt", alt)
+                .attr("title", title);
             if (addPintrest) {
                 pinit(med);
             }
@@ -219,16 +223,16 @@
 
         // Adding items to image for lightbox
         if ($(".thumbnails .thumb").length > 0) {
-            var $thumbs = $(".thumbnails .thumb");
-            var thumbAlt = $thumbs.find("img").attr("alt");
+            var $thumbs = $(".thumbnails .thumb");            
             for (var i = 0; i < $thumbs.length; i++) {
-                $thumbs.attr("data-title", thumbAlt);
+                var thumbAlt = $($thumbs[i]).find("img").attr("alt");
+                $($thumbs[i]).attr("data-title", thumbAlt);
                 pushItem($thumbs[i]);
             }
         } else if ($(".single-product-main-image").length > 0) {
             var singleImg = $(".single-product-main-image img");
             var singleImgAlt = singleImg.attr("alt");
-            singleImg.attr("data-title", singleImgAlt);
+            singleImg.find("img").attr("data-title", singleImgAlt);
 
             var $this = $(".single-product-main-image img")[0];
             pushItem($this);

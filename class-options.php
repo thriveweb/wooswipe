@@ -28,6 +28,7 @@ class wooswipe_plugin_options {
             $options['white_theme'] = false;
             $options['pinterest'] = false;
             $options['hide_thumbnails'] = false;
+            $options['remove_thumb_slider'] = false;
             update_option('wooswipe_options', $options);
         } else {
             if(!isset($options['white_theme'])) {
@@ -41,6 +42,9 @@ class wooswipe_plugin_options {
             }
             if(!isset($options['product_main_slider'])) {
                 $options['product_main_slider'] = false;
+            }
+            if(!isset($options['remove_thumb_slider'])) {
+                $options['remove_thumb_slider'] = false;
             }
             update_option('wooswipe_options', $options);
         }
@@ -76,6 +80,11 @@ class wooswipe_plugin_options {
                 $options['product_main_slider'] = (bool)false;
             }
 
+            if (isset($_POST['remove_thumb_slider'])) {
+                $options['remove_thumb_slider'] = (bool)true;
+            } else {
+                $options['remove_thumb_slider'] = (bool)false;
+            }
             update_option('wooswipe_options', $options);
         } else {
             wooswipe_plugin_options::WooSwipe_getOptions();
@@ -108,6 +117,9 @@ class wooswipe_plugin_options {
 
                     <div class="ps_border" ></div>
                     <p><label><input name="product_main_slider" type="checkbox" value="checkbox" <?php if($options['product_main_slider']) echo "checked='checked'"; ?> /> Add slider to Product main Image?</label></p>
+                    
+                    <div class="ps_border" ></div>
+                    <p><label><input name="remove_thumb_slider" type="checkbox" value="checkbox" <?php if($options['remove_thumb_slider']) echo "checked='checked'"; ?> /> Remove thumbnail slider completely?</label></p>
                     
                     <div class="ps_border" ></div>
                     <p><input class="button-primary" type="submit" name="wooswipe_save" value="Save Changes" /></p>
