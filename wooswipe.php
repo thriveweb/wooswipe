@@ -79,9 +79,9 @@ function wooswipe_scripts_method()
         }
 
         if ($options['light_icons']) {
-            $wooswipe_data = array('light_icon' => true);
+            $wooswipe_data['light_icons'] = true;
         } else {
-            $wooswipe_data = array('light_icon' => false);
+            $wooswipe_data['light_icons'] = false;
         }
         
         if ($options['product_main_slider'] == true) {
