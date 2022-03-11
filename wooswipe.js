@@ -1,6 +1,13 @@
 (function(document, window, $) {
     "use strict";
     var main_image_swiper = wooswipe_data['product_main_slider'];
+    setTimeout(function(){
+        if(wooswipe_data['light_icon']) {
+            $('body').find('#wooswipe .slick-arrow').addClass('light-icon');
+        } else {
+            $('body').find('#wooswipe  .slick-arrow').removeClass('light-icon');
+        }
+    },100);
     
     var add_slick_track_class = " ";
     var add_slick_slide_class = " ";

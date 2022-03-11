@@ -18,6 +18,7 @@ class wooswipe_plugin_options {
 	public static function init() {
 		// register functions
 		add_action('admin_menu', array('wooswipe_plugin_options', 'update'));
+        wooswipe_plugin_options::WooSwipe_getOptions();
 	}
 
     // Defaults
@@ -29,6 +30,7 @@ class wooswipe_plugin_options {
             $options['pinterest'] = false;
             $options['hide_thumbnails'] = false;
             $options['remove_thumb_slider'] = false;
+            $options['light_icons'] = false;
             update_option('wooswipe_options', $options);
         } else {
             if(!isset($options['white_theme'])) {
@@ -46,6 +48,10 @@ class wooswipe_plugin_options {
             if(!isset($options['remove_thumb_slider'])) {
                 $options['remove_thumb_slider'] = false;
             }
+            if(!isset($options['light_icons'])) {
+                $options['light_icons'] = false;
+            }
+
             update_option('wooswipe_options', $options);
         }
         return $options;
@@ -84,7 +90,14 @@ class wooswipe_plugin_options {
                 $options['remove_thumb_slider'] = (bool)true;
             } else {
                 $options['remove_thumb_slider'] = (bool)false;
+            }            
+
+            if (isset($_POST['light_icons'])) {
+                $options['light_icons'] = (bool)true;
+            } else {
+                $options['light_icons'] = (bool)false;
             }
+
             update_option('wooswipe_options', $options);
         } else {
             wooswipe_plugin_options::WooSwipe_getOptions();
@@ -109,6 +122,9 @@ class wooswipe_plugin_options {
                     <div class="ps_border" ></div>
                     <p><label><input name="white_theme" type="checkbox" value="checkbox" <?php if($options['white_theme']) echo "checked='checked'"; ?> /> Use white theme?</label></p>
 
+                    <div class="ps_border" ></div>
+                    <p><label><input name="light_icons" type="checkbox" value="checkbox" <?php if($options['light_icons']) echo "checked='checked'"; ?> /> Use light icons?</label></p>
+                    
                     <div class="ps_border" ></div>
                     <p><label><input name="pinterest" type="checkbox" value="checkbox" <?php if($options['pinterest']) echo "checked='checked'"; ?> /> Add Pinterest link?</label></p>
 

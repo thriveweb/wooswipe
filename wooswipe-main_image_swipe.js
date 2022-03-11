@@ -4,6 +4,17 @@
     });
     "use strict";
     var main_image_swiper = wooswipe_data['product_main_slider'];
+    var light_icon = ( wooswipe_data['light_icon'])  ? "style='filter: invert(1);'" : "";
+
+    setTimeout(function(){
+        if(wooswipe_data['light_icon']) {
+            $('body').find('#wooswipe .slick-arrow').addClass('light-icon');
+            $('body').find('#wooswipe .wooswipe-mainimagepopup').addClass('light-icon');
+        } else {
+            $('body').find('#wooswipe  .slick-arrow').removeClass('light-icon');
+            $('body').find('#wooswipe .wooswipe-mainimagepopup').removeClass('light-icon');
+        }
+    },100);
 
     var add_slick_track_class = " ";
     var add_slick_slide_class = " ";
@@ -70,7 +81,7 @@
             '<a class="wooswipe-popup wooswipe-mainimagepopup" rel="noreferrer noopener" href="' +
             firstUrl + '"><img src="' +
             plugin_path +
-            '/images/full-screen-box.svg" alt="wooswipe-zoom" /></a>'
+            '/images/full-screen-box.svg" alt="wooswipe-zoom" '+light_icon+'/></a>'
         );
 
         // It will setup the selected image url for the full screen view

@@ -78,6 +78,12 @@ function wooswipe_scripts_method()
             $wooswipe_data = array('addpin' => false);
         }
 
+        if ($options['light_icons']) {
+            $wooswipe_data = array('light_icon' => true);
+        } else {
+            $wooswipe_data = array('light_icon' => false);
+        }
+        
         if ($options['product_main_slider'] == true) {
             $wooswipe_data['product_main_slider'] =  true;
             wp_enqueue_script('wooswipe-main-image-swipe-js', $wooswipe_wp_plugin_path . '/wooswipe-main_image_swipe.js', null, null, true);
