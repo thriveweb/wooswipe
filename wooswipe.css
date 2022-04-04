@@ -1,5 +1,6 @@
 #wooswipe {
   position: relative;
+  padding-bottom: 20px;
 }
 
 #wooswipe .wooswipe-pinit {
@@ -17,9 +18,75 @@
   overflow: hidden;
   max-height: 100%;
   padding: 0;
+  margin-bottom: 20px;
 }
 
 /* Fix for some themes */
 .woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n+2){
   width: 100%;
 }
+
+#wooswipe div.single-product-main-image a:hover{
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+#wooswipe .single-product-main-image-wrap .single-product-main-image {
+  margin-inline-end: 0px;
+  padding-inline-start: 0px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#wooswipe  .slick-prev:before,#wooswipe  .slick-next:before {
+  color: black;
+}
+
+#wooswipe .wooswipe-pinit.wooswipe-mainimagepin {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
+
+.wooswipe-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+}
+
+#wooswipe .wooswipe-popup.wooswipe-mainimagepopup {
+  position: absolute;
+  display: block;
+  top: 0;
+  top: 25px;
+  right: 35px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
+#wooswipe .wooswipe-popup.wooswipe-mainimagepopup.light-icon img {
+  filter: invert(1);
+}
+
+.site a.wooswipe-mainimagepopup:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+    outline: unset !important; 
+    text-decoration: unset !important;
+    text-decoration-skip-ink: none !important;
+    background: transparent !important;
+}
+.site a.wooswipe-mainimagepopup:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
+  outline: unset !important; 
+}
+#wooswipe .slick-prev.light-icon:before, #wooswipe .slick-next.light-icon:before {
+  filter: invert(1);
+}
+  
+#wooswipe .woocommerce-main-image {
+  cursor: default;
+}
+

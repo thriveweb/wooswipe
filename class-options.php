@@ -18,6 +18,7 @@ class wooswipe_plugin_options {
 	public static function init() {
 		// register functions
 		add_action('admin_menu', array('wooswipe_plugin_options', 'update'));
+        wooswipe_plugin_options::WooSwipe_getOptions();
 	}
 
     // Defaults
@@ -28,6 +29,8 @@ class wooswipe_plugin_options {
             $options['white_theme'] = false;
             $options['pinterest'] = false;
             $options['hide_thumbnails'] = false;
+            $options['remove_thumb_slider'] = false;
+            $options['light_icons'] = false;
             update_option('wooswipe_options', $options);
         } else {
             if(!isset($options['white_theme'])) {
@@ -39,6 +42,16 @@ class wooswipe_plugin_options {
             if(!isset($options['hide_thumbnails'])) {
                 $options['hide_thumbnails'] = false;
             }
+            if(!isset($options['product_main_slider'])) {
+                $options['product_main_slider'] = false;
+            }
+            if(!isset($options['remove_thumb_slider'])) {
+                $options['remove_thumb_slider'] = false;
+            }
+            if(!isset($options['light_icons'])) {
+                $options['light_icons'] = false;
+            }
+
             update_option('wooswipe_options', $options);
         }
         return $options;
@@ -67,6 +80,24 @@ class wooswipe_plugin_options {
                 $options['hide_thumbnails'] = (bool)false;
             }
 
+            if (isset($_POST['product_main_slider'])) {
+                $options['product_main_slider'] = (bool)true;
+            } else {
+                $options['product_main_slider'] = (bool)false;
+            }
+
+            if (isset($_POST['remove_thumb_slider'])) {
+                $options['remove_thumb_slider'] = (bool)true;
+            } else {
+                $options['remove_thumb_slider'] = (bool)false;
+            }            
+
+            if (isset($_POST['light_icons'])) {
+                $options['light_icons'] = (bool)true;
+            } else {
+                $options['light_icons'] = (bool)false;
+            }
+
             update_option('wooswipe_options', $options);
         } else {
             wooswipe_plugin_options::WooSwipe_getOptions();
@@ -92,11 +123,20 @@ class wooswipe_plugin_options {
                     <p><label><input name="white_theme" type="checkbox" value="checkbox" <?php if($options['white_theme']) echo "checked='checked'"; ?> /> Use white theme?</label></p>
 
                     <div class="ps_border" ></div>
+                    <p><label><input name="light_icons" type="checkbox" value="checkbox" <?php if($options['light_icons']) echo "checked='checked'"; ?> /> Use light icons?</label></p>
+                    
+                    <div class="ps_border" ></div>
                     <p><label><input name="pinterest" type="checkbox" value="checkbox" <?php if($options['pinterest']) echo "checked='checked'"; ?> /> Add Pinterest link?</label></p>
 
                     <div class="ps_border" ></div>
                     <p><label><input name="hide_thumbnails" type="checkbox" value="checkbox" <?php if($options['hide_thumbnails']) echo "checked='checked'"; ?> /> Hide thumbnails if there are no product gallery or variation images.</label></p>
 
+                    <div class="ps_border" ></div>
+                    <p><label><input name="product_main_slider" type="checkbox" value="checkbox" <?php if($options['product_main_slider']) echo "checked='checked'"; ?> /> Add slider to Product main Image?</label></p>
+                    
+                    <div class="ps_border" ></div>
+                    <p><label><input name="remove_thumb_slider" type="checkbox" value="checkbox" <?php if($options['remove_thumb_slider']) echo "checked='checked'"; ?> /> Remove thumbnail slider completely?</label></p>
+                    
                     <div class="ps_border" ></div>
                     <p><input class="button-primary" type="submit" name="wooswipe_save" value="Save Changes" /></p>
 

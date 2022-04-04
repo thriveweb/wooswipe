@@ -1,11 +1,26 @@
 (function(document, window, $) {
     "use strict";
+    var main_image_swiper = wooswipe_data['product_main_slider'];
+    setTimeout(function(){
+        if(wooswipe_data['light_icon']) {
+            $('body').find('#wooswipe .slick-arrow').addClass('light-icon');
+        } else {
+            $('body').find('#wooswipe  .slick-arrow').removeClass('light-icon');
+        }
+    },100);
+    
+    var add_slick_track_class = " ";
+    var add_slick_slide_class = " ";
+    if(main_image_swiper) {
+        add_slick_track_class = ".slick-track";
+        add_slick_slide_class = ".slick-slide";
+    }
 
     (function productThumbnails() {
         // see wp_enqueue_script wp_localize_script wooswipe.php
         var plugin_path = wooswipe_wp_plugin_path.templateUrl + "/";
 
-        var addPintrest = addpin['addpin'];
+        var addPintrest = wooswipe_data['addpin'];
 
         var firstUrl = $(".single-product-main-image img").attr("src");
         var alt = $(".single-product-main-image img").attr("alt");
@@ -26,6 +41,7 @@
 
         if (addPintrest) {
             // set up first pin
+            if($(".single-product-main-image").length != 0){
             $("#wooswipe").prepend(
                 '<a class="wooswipe-pinit" target="_blank" rel="noreferrer noopener" href="https://www.pinterest.com/pin/create/button/?media=' +
                 firstUrl +
@@ -37,6 +53,7 @@
                 plugin_path +
                 '/pinit/pinterest.svg" alt="Pinterest" /></a>'
             );
+            }
             // popit new window
             $(".wooswipe-pinit").click(function(e) {
                 e.preventDefault();
@@ -80,29 +97,27 @@
                 }
             ]
         });
-        var mainImage = $(".single-product-main-image img");
-        if (!mainImage.length) {
-            mainImage = $("#wooswipe > img");
-            mainImage.wrap('<a class="woocommerce-main-image zoom" href="#"></a>');
-            $(".woocommerce-main-image").wrap(
-                '<div class="single-product-main-image"></div>'
-            );
-            if (addPintrest) {
-                pinit(mainImage[0].src);
-            }
-        }
+
+
+        // if slider disable for the main image
+    
+        // set the data attributes for the image on thumbnail click
         $(".thumbnails .thumb").click(function(e) {
             e.preventDefault();
             var $this = $(this);
             var med = $this.attr("data-med");
+            var alt = $this.attr("data-title");
+            var title = $this.attr("data-title");
             var srcset = $this.attr("data-med");
             var width = $this.attr("data-medw");
             var height = $this.attr("data-medh");
             var hq = $this.attr("data-hq");
             var hqw = $this.attr("data-w");
             var hqh = $this.attr("data-h");
+            var atid = $this.attr("data-attachment_id");
             var ind = $this.parent().index();
             var parHeight = 0;
+            mainImage = $(".single-product-main-image img");
             mainImage
                 .attr("data-ind", ind)
                 .attr("src", med)
@@ -111,14 +126,33 @@
                 .attr("height", height)
                 .attr("data-hq", hq)
                 .attr("data-w", hqw)
-                .attr("data-h", hqh);
+                .attr("data-h", hqh)
+                .attr("data-attachment_id", atid)
+                .attr("alt", alt)
+                .attr("title", title);
             if (addPintrest) {
                 pinit(med);
             }
         });
 
-        // on variation change set popup index to changed variation
+
+        var mainImage = $(".single-product-main-image img");
+        
+        if (mainImage.length != 0) {
+            mainImage = $(".single-product-main-image img");
+            mainImage.wrap('<a class="woocommerce-main-image zoom" href="#"></a>');
+            $(".woocommerce-main-image").wrap(
+                '<div class="single-product-main-image"></div>'
+            );
+            
+            if (addPintrest) {
+                pinit(mainImage[0].src);
+            }
+        }
+
+        // on variation change set popup index to changed variation (if slider disable for the main image)
         $(document).on("change", ".variations select", function() {
+            
             var imgsrc = $("#wooswipe a:not(.wooswipe-pinit)").attr("href");
             var srcind = 0;
             $(".thumbnails .thumb").each(function() {
@@ -135,9 +169,14 @@
             }
         });
 
+
+
         // compatibility for "WooCommerce Variation Swatches and Photo". On swatch change set popup index to changed variation
         if ($(".variations .swatch-control").length > 0) {
+
+            // if slider disable for the main image
             $(".variations_form").addClass('has-swatches');
+            
             $(".variations_form.has-swatches").on('change', function (e) {
                 var imgsrc = $("#wooswipe a:not(.wooswipe-pinit)").attr("href");
                 var srcind = 0;
@@ -147,11 +186,11 @@
                     }
                 });
                 $("#wooswipe img").attr("data-ind", srcind);
-
                 if (addPintrest) {
                     pinit(mainImage.attr("src"));
                 }
             });
+
         }
     })();
 
@@ -188,33 +227,35 @@
             };
             items.push(item);
         }
+
         // Adding items to image for lightbox
         if ($(".thumbnails .thumb").length > 0) {
-            var $thumbs = $(".thumbnails .thumb");
-            var thumbAlt = $thumbs.find("img").attr("alt");
+            var $thumbs = $(".thumbnails .thumb");            
             for (var i = 0; i < $thumbs.length; i++) {
-                $thumbs.attr("data-title", thumbAlt);
+                var thumbAlt = $($thumbs[i]).find("img").attr("alt");
+                $($thumbs[i]).attr("data-title", thumbAlt);
                 pushItem($thumbs[i]);
             }
         } else if ($(".single-product-main-image").length > 0) {
             var singleImg = $(".single-product-main-image img");
             var singleImgAlt = singleImg.attr("alt");
-            singleImg.attr("data-title", singleImgAlt);
+            singleImg.find("img").attr("data-title", singleImgAlt);
 
             var $this = $(".single-product-main-image img")[0];
             pushItem($this);
         }
 
         // click event
-        if ($(".single-product-main-image").length > 0) {
-            $(".single-product-main-image").click(function(e) {
+        if ($(".single-product-main-image "+add_slick_slide_class+" img").length > 0) {
+            $(".single-product-main-image "+add_slick_slide_class+" img").click(function(e) {
+
                 // Allow user to open image link in new tab or download it
                 if (e.which == 2 || e.ctrlKey || e.altKey) {
                     return;
                 }
                 var ind = $(this)
-                .find("img")
                 .attr("data-ind");
+
                 e.preventDefault();
                 var index = ind ? parseInt(ind) : 0;
                 openPswp(index);
