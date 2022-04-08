@@ -4,17 +4,6 @@
     });
     "use strict";
     var main_image_swiper = wooswipe_data['product_main_slider'];
-    var light_icon = ( wooswipe_data['light_icon'])  ? "style='filter: invert(1);'" : "";
-
-    setTimeout(function(){
-        if(wooswipe_data['light_icon']) {
-            $('body').find('#wooswipe .slick-arrow').addClass('light-icon');
-            $('body').find('#wooswipe .wooswipe-mainimagepopup').addClass('light-icon');
-        } else {
-            $('body').find('#wooswipe  .slick-arrow').removeClass('light-icon');
-            $('body').find('#wooswipe .wooswipe-mainimagepopup').removeClass('light-icon');
-        }
-    },100);
 
     var add_slick_track_class = " ";
     var add_slick_slide_class = " ";
@@ -79,9 +68,7 @@
         // setup the full screen box
         $("#wooswipe").prepend(
             '<a class="wooswipe-popup wooswipe-mainimagepopup" rel="noreferrer noopener" href="' +
-            firstUrl + '"><img src="' +
-            plugin_path +
-            '/images/full-screen-box.svg" alt="wooswipe-zoom" '+light_icon+'/></a>'
+            firstUrl + '"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#fff" fill-rule="evenodd"><ellipse cx="19.5" cy="20.1613" rx="15" ry="15.1613" stroke-opacity="0" fill="'+wooswipe_data['icon_bg_color']+'"/><path d="M26.1373 12.4821h-.278l-.0292-.0293-.0366.0366-3.6931-.0078-.0076 1.6458 2.0476.0149-4.4102 4.4101-4.4165-4.4186 2.0185.0149.0075-1.6605-3.6932-.0224-.0072-.0073-.0147.0146-.3145-.0074c-.2281.0036-.4233.0863-.585.2487s-.244.3554-.2487.5852l.0072.3145-.0146.0147.0146.0145-.0005 3.7011 1.6527.0003.0004-2.0482 4.4238 4.426-4.4249 4.4249.0002-2.048-1.6527-.0002-.0005 3.7011-.0293.0292.0293.0293-.0074.2852c.0046.2298.0876.4247.2486.5853s.3568.2451.585.2487l.2852-.0073.0292.0293.0294-.0292 3.6857-.0142-.0071-1.6604-2.0184.0143 4.4176-4.4175 4.4091 4.4115-2.0477.0143.0072 1.6459 3.6931-.0069.022.022.0146-.0147.3072.0001c.2323-.0056.4274-.0883.585-.2487a.798.798 0 0 0 .2415-.5924v-.2926l.0219-.0219-.0219-.022-.0141-3.6866-1.6528.0145.0071 2.0115-4.402-4.4041 4.4031-4.4029-.0076 2.0115 1.6527.0148.0151-3.6865.0366-.0367-.0366-.0365.0001-.2633c.0024-.2306-.0781-.4281-.2412-.5925-.1577-.1604-.3528-.2433-.585-.2488z" stroke="none" fill="'+wooswipe_data['icon_stroke_color']+'" fill-rule="nonzero"/></svg></a>'
         );
 
         // It will setup the selected image url for the full screen view
@@ -99,6 +86,8 @@
             slidesToShow: 5,
             slidesToScroll: 1,
             respondTo: "slider",
+            prevArrow: '<button class="wooswipe-prev slick-arrow slick-disabled" aria-label="Previous" type="button" style=""><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 80 80"><g id="left" transform="translate(-977 -529)"><circle xmlns="http://www.w3.org/2000/svg" id="Ellipse_1" data-name="Ellipse 1" cx="40" cy="40" r="40" transform="translate(977 529)" fill="'+wooswipe_data['icon_bg_color']+'"/><path id="Icon_awesome-chevron-left" data-name="Icon awesome-chevron-left" d="M2.6,21.735,21.021,3.314a2.275,2.275,0,0,1,3.217,0l2.149,2.149a2.275,2.275,0,0,1,0,3.213l-14.6,14.667,14.6,14.668a2.274,2.274,0,0,1,0,3.213l-2.149,2.149a2.275,2.275,0,0,1-3.217,0L2.6,24.952A2.275,2.275,0,0,1,2.6,21.735Z" transform="translate(1003.067 545.352)" fill="'+wooswipe_data['icon_stroke_color']+'"/></g></svg></button>',
+            nextArrow: '<button class="wooswipe-next slick-arrow" aria-label="Next" type="button" style="" ><svg xmlns="http://www.w3.org/2000/svg" id="right" width="20" height="20" viewBox="0 0 80 80"><circle id="Ellipse_1" data-name="Ellipse 1" cx="40" cy="40" r="40" fill="'+wooswipe_data['icon_bg_color']+'" /><path id="Icon_awesome-chevron-left" data-name="Icon awesome-chevron-left" d="M26.387,21.735,7.965,3.314a2.275,2.275,0,0,0-3.217,0L2.6,5.463a2.275,2.275,0,0,0,0,3.213L17.2,23.344,2.6,38.012a2.274,2.274,0,0,0,0,3.213l2.149,2.149a2.275,2.275,0,0,0,3.217,0L26.387,24.952A2.275,2.275,0,0,0,26.387,21.735Z" transform="translate(24.947 16.352)" fill="'+wooswipe_data['icon_stroke_color']+'"/></svg></button>',
             responsive: [
                 {
                     breakpoint: 680,
@@ -134,6 +123,8 @@
             slidesToScroll: 1,
             respondTo: "slider",
             adaptiveHeight: true,
+            prevArrow: '<button class="wooswipe-prev slick-arrow slick-disabled" aria-label="Previous" type="button" style=""><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 80 80"><g id="left" transform="translate(-977 -529)"><circle xmlns="http://www.w3.org/2000/svg" id="Ellipse_1" data-name="Ellipse 1" cx="40" cy="40" r="40" transform="translate(977 529)" fill="'+wooswipe_data['icon_bg_color']+'"/><path id="Icon_awesome-chevron-left" data-name="Icon awesome-chevron-left" d="M2.6,21.735,21.021,3.314a2.275,2.275,0,0,1,3.217,0l2.149,2.149a2.275,2.275,0,0,1,0,3.213l-14.6,14.667,14.6,14.668a2.274,2.274,0,0,1,0,3.213l-2.149,2.149a2.275,2.275,0,0,1-3.217,0L2.6,24.952A2.275,2.275,0,0,1,2.6,21.735Z" transform="translate(1003.067 545.352)" fill="'+wooswipe_data['icon_stroke_color']+'"/></g></svg></button>',
+            nextArrow: '<button class="wooswipe-next slick-arrow" aria-label="Next" type="button" style="" ><svg xmlns="http://www.w3.org/2000/svg" id="right" width="20" height="20" viewBox="0 0 80 80"><circle id="Ellipse_1" data-name="Ellipse 1" cx="40" cy="40" r="40" fill="'+wooswipe_data['icon_bg_color']+'" /><path id="Icon_awesome-chevron-left" data-name="Icon awesome-chevron-left" d="M26.387,21.735,7.965,3.314a2.275,2.275,0,0,0-3.217,0L2.6,5.463a2.275,2.275,0,0,0,0,3.213L17.2,23.344,2.6,38.012a2.274,2.274,0,0,0,0,3.213l2.149,2.149a2.275,2.275,0,0,0,3.217,0L26.387,24.952A2.275,2.275,0,0,0,26.387,21.735Z" transform="translate(24.947 16.352)" fill="'+wooswipe_data['icon_stroke_color']+'"/></svg></button>',
             responsive: [
                 {
                     breakpoint: 680,
@@ -303,14 +294,14 @@
             var $thumbs = $(".thumbnails .thumb");
 
             for (var i = 0; i < $thumbs.length; i++) {
-                var thumbAlt = $($thumbs[i]).find("img").attr("alt");
+                var thumbAlt = $($thumbs[i]).find("img").attr("title");
                 $thumbs.attr("data-title", thumbAlt);
                 pushItem($thumbs[i]);
             }
         } else if ($(".single-product-main-image").length > 0) {
             var singleImg = $(".single-product-main-image img");
             for (var i = 0; i < singleImg.length; i++) {
-                var singleImgAlt = $(singleImg[i]).attr("alt");
+                var singleImgAlt = $(singleImg[i]).attr("title");
                 singleImg.attr("data-title", singleImgAlt);
                 var $this = $(".single-product-main-image img");
                 pushItem($this);
