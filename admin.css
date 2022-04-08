@@ -62,6 +62,38 @@
   background: #555;
 }
 
+#wooswipe_admin .icon_color_opt {
+  display: flex;
+}
+#wooswipe_admin .icons-preview {
+  border: dotted;
+  padding-top: 15px;
+  height: 90px;
+}
+#wooswipe_admin span {
+  margin: 10px;
+  margin-top: 15px;
+  position: relative;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+#wooswipe_admin .icon_color_inputs {
+  margin-right: 20px;
+}
+#wooswipe_admin .icons-preview-list {
+  display: flex;
+  justify-content: center;
+  justify-items:center;
+}
+#wooswipe_admin .icons-preview-list li {
+  padding: 10px;
+}
+#wooswipe_admin .icons-preview-list li.nav-left svg, #wooswipe_admin .icons-preview-list li.nav-right svg{
+  padding-top: 5px;
+}
+
+
 @media screen and (max-width: 600px) {
   #wooswipe_admin {
     flex-direction: column;

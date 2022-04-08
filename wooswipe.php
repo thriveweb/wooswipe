@@ -69,6 +69,7 @@ function wooswipe_scripts_method()
 
         wp_enqueue_style('wooswipe-css', $wooswipe_wp_plugin_path . '/wooswipe.css');
 
+
         //after wp_enqueue_script
         $template_Url = array('templateUrl' => $wooswipe_wp_plugin_path);
         $wooswipe_data = array();
@@ -78,11 +79,18 @@ function wooswipe_scripts_method()
             $wooswipe_data = array('addpin' => false);
         }
 
-        if ($options['light_icons']) {
-            $wooswipe_data['light_icons'] = true;
+        if (!empty($options['icon_bg_color'])) {
+            $wooswipe_data['icon_bg_color'] = $options['icon_bg_color'];
         } else {
-            $wooswipe_data['light_icons'] = false;
+            $wooswipe_data['icon_bg_color'] = '#000000';
         }
+
+        if (!empty($options['icon_stroke_color'])) {
+            $wooswipe_data['icon_stroke_color'] = $options['icon_stroke_color'];
+        } else {
+            $wooswipe_data['icon_stroke_color'] = '#ffffff';
+        }
+
         
         if ($options['product_main_slider'] == true) {
             $wooswipe_data['product_main_slider'] =  true;
@@ -116,22 +124,23 @@ function wooswipe_woocommerce_show_product_thumbnails()
         do_action('wooswipe_before_main');
         $zoomed_image_size = array(1920, 1080);
         if (has_post_thumbnail()) {
-            $thumbnail_id = get_post_thumbnail_id();
-            $image_title = esc_attr(get_the_title($thumbnail_id));
-            $image_link  = wp_get_attachment_url($thumbnail_id);
-            $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-            $hq = wp_get_attachment_image_src($thumbnail_id, apply_filters('wooswipe_zoomed_image_size', $zoomed_image_size));
+            $thumbnail_id   = get_post_thumbnail_id();
+            $image_title    = !empty(get_the_excerpt($thumbnail_id)) ? esc_attr(get_the_excerpt($thumbnail_id)) : esc_attr(get_the_title($thumbnail_id));
+            $image_link     = wp_get_attachment_url($thumbnail_id);
+            $alt    = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+            $alt    = !empty($alt) ? $alt : esc_attr(get_the_title($thumbnail_id));
+            $hq     = wp_get_attachment_image_src($thumbnail_id, apply_filters('wooswipe_zoomed_image_size', $zoomed_image_size));
             
-            $image = get_the_post_thumbnail(
+            $image  = get_the_post_thumbnail(
                 $post->ID,
                 apply_filters('single_product_large_thumbnail_size', 'shop_single'),
                 array(
-                    'title' => $image_title,
-                    'data-hq' => $hq[0],
-                    'data-w' => $hq[1],
-                    'data-h' => $hq[2],
-                    'loading' => false,
-                    'alt'     => !empty($alt) ? $alt : $image_title,
+                    'title'     => $image_title,
+                    'data-hq'   => $hq[0],
+                    'data-w'    => $hq[1],
+                    'data-h'    => $hq[2],
+                    'loading'   => false,
+                    'alt'       => $alt,
                 )
             );
 
@@ -146,11 +155,10 @@ function wooswipe_woocommerce_show_product_thumbnails()
             if ($wooswipe_options['product_main_slider'] == false) :
                 $html = sprintf(
                     '
-                <div class="woocommerce-product-gallery__image single-product-main-image">
-                <a href="%s" alt="%s" class="woocommerce-main-image zoom" >%s</a>
+                    <div class="woocommerce-product-gallery__image single-product-main-image 123">
+                    <a href="%s" class="woocommerce-main-image zoom" >%s</a>
                 </div>',
                     $image_link,
-                    $image_title,
                     $image
                 );
                 echo apply_filters('woocommerce_single_product_image_html', $html, $post->ID);
@@ -175,19 +183,21 @@ function wooswipe_woocommerce_show_product_thumbnails()
             function addImageThumbnail($attachment_id, $slideno, $zoomed_image_size)
             {
                 global $post;
-                $hq               = wp_get_attachment_image_src($attachment_id, apply_filters('wooswipe_zoomed_image_size', $zoomed_image_size));
-                $med              = wp_get_attachment_image_src($attachment_id, 'shop_single');
-                // $image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
-                $srcset         = wp_get_attachment_image_srcset($attachment_id);
-                $sizes          = wp_get_attachment_image_sizes($attachment_id, 'shop_single');
+                $hq                 = wp_get_attachment_image_src($attachment_id, apply_filters('wooswipe_zoomed_image_size', $zoomed_image_size));
+                $med                = wp_get_attachment_image_src($attachment_id, 'shop_single');
+                $srcset             = wp_get_attachment_image_srcset($attachment_id);
+                $sizes              = wp_get_attachment_image_sizes($attachment_id, 'shop_single');
+                $image_title        = !empty(get_the_excerpt($attachment_id)) ? esc_attr(get_the_excerpt($attachment_id)) : esc_attr(get_the_title($attachment_id));
+                $alt                = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
+                $alt                = !empty($alt) ? esc_attr($alt) : esc_attr(get_the_title($attachment_id));
                 $image           = wp_get_attachment_image(
                     $attachment_id,
                     'shop_thumbnail',
                     false,
                     array(
-                        'title'     => esc_attr(get_the_title($attachment_id)),
+                        'title'     => $image_title,
                         'loading'   => false,
-                        'alt'       => esc_attr(get_the_title($attachment_id)),
+                        'alt'       => $alt,
                         'sizes'     => $sizes,
                         'width'     => '100',
                         'height'    => '100'
@@ -320,7 +330,9 @@ function wooswipe_woocommerce_show_product_main_image_swiper($finalArray, $zoome
             for ($i = 0; $i < count($finalArray); $i++) {
                 global $post;
                 $image_link     = wp_get_attachment_url($finalArray[$i]);
-                $image_title    = esc_attr(get_the_title($finalArray[$i]));
+                $image_title    = !empty(get_the_excerpt($finalArray[$i])) ? esc_attr(get_the_excerpt($finalArray[$i])) : esc_attr(get_the_title($finalArray[$i]));
+                $alt            = get_post_meta($finalArray[$i], '_wp_attachment_image_alt', true);
+                $alt            = !empty($alt) ? esc_attr($alt) : esc_attr(get_the_title($finalArray[$i]));
                 $med            = wp_get_attachment_image_src($finalArray[$i], 'shop_single');
                 $hq             = wp_get_attachment_image_src($finalArray[$i], apply_filters('wooswipe_zoomed_image_size', $zoomed_image_size));
                 $sizes          = wp_get_attachment_image_sizes($finalArray[$i], 'shop_single');
@@ -334,7 +346,7 @@ function wooswipe_woocommerce_show_product_main_image_swiper($finalArray, $zoome
                         'data-w'    => $hq[1],
                         'data-h'    => $hq[2],
                         'loading'   => false,
-                        'alt'       => $image_title,
+                        'alt'       => $alt,
                         'sizes'     => $sizes,
                         'id'        => "main_image_" . $finalArray[$i],
                         "data-ind"  => $i
@@ -349,7 +361,7 @@ function wooswipe_woocommerce_show_product_main_image_swiper($finalArray, $zoome
                         <a href="%s"  alt="%s" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s" class="woocommerce-main-image zoom thumb-big" >%s</a>
                     </li>',
                     "javaScript:void(0);",
-                    $image_title,
+                    $alt,
                     $hq[0],
                     $hq[1],
                     $hq[2],
