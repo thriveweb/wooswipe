@@ -89,10 +89,6 @@
 #wooswipe_admin .icons-preview-list li {
   padding: 10px;
 }
-#wooswipe_admin .icons-preview-list li.nav-left svg, #wooswipe_admin .icons-preview-list li.nav-right svg{
-  padding-top: 5px;
-}
-
 
 @media screen and (max-width: 600px) {
   #wooswipe_admin {
