@@ -93,7 +93,7 @@ button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
   position: absolute;
   display: block;
   top: 0;
-  right: 0px;
+  right: 7px;
 }
 
 #wooswipe .wooswipe-popup.wooswipe-mainimagepopup.light-icon img {
