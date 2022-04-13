@@ -82,18 +82,11 @@ button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
 #wooswipe .wooswipe-popup.wooswipe-mainimagepopup {
   position: absolute;
   display: block;
-  top: 20px;
-  right: 29px;
+  top: 25px;
+  right: 35px;
   width: 25px;
   height: 25px;
   z-index: 9;
-}
-
-#wooswipe .wooswipe-popup.wooswipe-mainimagepopup svg { 
-  position: absolute;
-  display: block;
-  top: 0;
-  right: 7px;
 }
 
 #wooswipe .wooswipe-popup.wooswipe-mainimagepopup.light-icon img {
