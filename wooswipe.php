@@ -330,7 +330,7 @@ function wooswipe_woocommerce_show_product_main_image_swiper($finalArray, $zoome
             for ($i = 0; $i < count($finalArray); $i++) {
                 global $post;
                 $image_link     = wp_get_attachment_url($finalArray[$i]);
-                $image_title    = !empty(get_the_excerpt($finalArray[$i])) ? esc_attr(get_the_excerpt($finalArray[$i])) : esc_attr(get_the_title($finalArray[$i]));
+                $image_title    = !empty(get_the_excerpt($finalArray[$i])) ? get_the_excerpt($finalArray[$i]) : esc_attr(get_the_title($finalArray[$i]));
                 $alt            = get_post_meta($finalArray[$i], '_wp_attachment_image_alt', true);
                 $alt            = !empty($alt) ? esc_attr($alt) : esc_attr(get_the_title($finalArray[$i]));
                 $med            = wp_get_attachment_image_src($finalArray[$i], 'shop_single');

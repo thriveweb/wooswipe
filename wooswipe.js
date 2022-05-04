@@ -231,11 +231,11 @@
                 $($thumbs[i]).attr("data-title", thumbAlt);
                 pushItem($thumbs[i]);
             }
-        } else if ($(".single-product-main-image").length > 0) {
+        } 
+        if ($(".single-product-main-image").length > 0) {
             var singleImg = $(".single-product-main-image img");
             var singleImgAlt = singleImg.attr("title");
-            singleImg.find("img").attr("data-title", singleImgAlt);
-
+            $(".single-product-main-image").find('img').attr("data-title", singleImgAlt);
             var $this = $(".single-product-main-image img")[0];
             pushItem($this);
         }
