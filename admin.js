@@ -13,5 +13,13 @@ jQuery(document).ready(function () {
 
     });
   });
+
+  jQuery("#product_main_slider[type=checkbox]").change(function () {
+    if (jQuery(this).prop("checked") == true) {
+      jQuery(".main_slide_nav").slideDown();
+    }else{
+      jQuery(".main_slide_nav").slideUp();
+    }
+  });
   
 });

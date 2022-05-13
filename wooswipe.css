@@ -21,6 +21,9 @@
   margin-bottom: 20px;
 }
 
+body.elementor #wooswipe .thumbnails, body.elementor-page #wooswipe .thumbnails, body.theme-hello-elementor  #wooswipe .thumbnails {
+  height: auto;
+}
 /* Fix for some themes */
 .woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n+2){
   width: 100%;
@@ -55,7 +58,16 @@ button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
   top: 50%;
   border: none;
   display: block;
-  cursor: pointer;
+  cursor: pointer;  
+  z-index: 999;
+}
+
+.single-product-main-image button.wooswipe-prev.slick-arrow {
+  left: 40px;
+}
+
+.single-product-main-image button.wooswipe-next.slick-arrow {
+  right: 40px;
 }
 
 .thumbnail-nav button.wooswipe-next.slick-arrow,.thumbnail-nav button.wooswipe-prev.slick-arrow {

@@ -93,6 +93,9 @@ function wooswipe_scripts_method()
 
         
         if ($options['product_main_slider'] == true) {
+            if ($options['product_main_slider_nav_arrow'] == true) {
+                $wooswipe_data['product_main_slider_nav_arrow'] = true;
+            }
             $wooswipe_data['product_main_slider'] =  true;
             wp_enqueue_script('wooswipe-main-image-swipe-js', $wooswipe_wp_plugin_path . '/wooswipe-main_image_swipe.js', null, null, true);
             wp_localize_script('wooswipe-main-image-swipe-js', 'wooswipe_wp_plugin_path', $template_Url);
