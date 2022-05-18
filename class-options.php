@@ -33,6 +33,8 @@ class wooswipe_plugin_options {
             $options['pinterest'] = false;
             $options['hide_thumbnails'] = false;
             $options['remove_thumb_slider'] = false;
+            $options['product_main_slider'] = false;
+            $options['product_main_slider_nav_arrow'] = false;
             $options['icon_bg_color'] = "#000000";
             $options['icon_stroke_color'] = "#ffffff";
             update_option('wooswipe_options', $options);
@@ -48,6 +50,9 @@ class wooswipe_plugin_options {
             }
             if(!isset($options['product_main_slider'])) {
                 $options['product_main_slider'] = false;
+            }
+            if(!isset($options['product_main_slider_nav_arrow'])) {
+                $options['product_main_slider_nav_arrow'] = false;
             }
             if(!isset($options['remove_thumb_slider'])) {
                 $options['remove_thumb_slider'] = false;
@@ -92,6 +97,13 @@ class wooswipe_plugin_options {
             } else {
                 $options['product_main_slider'] = (bool)false;
             }
+
+            if (isset($_POST['product_main_slider_nav_arrow'])) {
+                $options['product_main_slider_nav_arrow'] = (bool)true;
+            } else {
+                $options['product_main_slider_nav_arrow'] = (bool)false;
+            }
+
 
             if (isset($_POST['remove_thumb_slider'])) {
                 $options['remove_thumb_slider'] = (bool)true;
@@ -148,7 +160,18 @@ class wooswipe_plugin_options {
                     <p><label><input name="hide_thumbnails" type="checkbox" value="checkbox" <?php if($options['hide_thumbnails']) echo "checked='checked'"; ?> /> Hide thumbnails if there are no product gallery or variation images.</label></p>
 
                     <div class="ps_border" ></div>
-                    <p><label><input name="product_main_slider" type="checkbox" value="checkbox" <?php if($options['product_main_slider']) echo "checked='checked'"; ?> /> Add slider to Product main Image?</label></p>
+                    <p><label><input name="product_main_slider" type="checkbox" value="checkbox" id="product_main_slider" <?php if($options['product_main_slider']) echo "checked='checked'"; ?> /> Add slider to Product main Image?</label></p>
+
+                    <?php 
+                    $display_style="";
+                    if($options['product_main_slider']):
+                        $display_style = " ";
+                    else:
+                        $display_style = "display:none;";
+                    endif;
+                    ?>
+                    <div class="ps_border" ></div>
+                    <p class="main_slide_nav" style="<?php echo $display_style; ?>"><label><input name="product_main_slider_nav_arrow" id="product_main_slider_nav_arrow" type="checkbox" value="checkbox" <?php if($options['product_main_slider_nav_arrow']) echo "checked='checked'"; ?> /> Add navigation arrows to the Product main image slider?</label></p>
                     
                     <div class="ps_border" ></div>
                     <p><label><input name="remove_thumb_slider" type="checkbox" value="checkbox" <?php if($options['remove_thumb_slider']) echo "checked='checked'"; ?> /> Remove thumbnail slider completely?</label></p>
