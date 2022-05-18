@@ -1,5 +1,5 @@
 === WooSwipe WooCommerce Gallery ===
-Contributors: deanoakley, jinksi, Firthir
+Contributors: deanoakley, krutimodi, jinksi, Firthir
 Author: Web Design Gold Coast
 Author URI: https://thriveweb.com.au/
 Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
