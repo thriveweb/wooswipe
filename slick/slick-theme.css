@@ -130,7 +130,7 @@ button.slick-arrow:focus{
 /* Dots */
 .slick-slider
 {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .slick-dots
