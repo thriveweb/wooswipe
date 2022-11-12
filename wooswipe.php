@@ -6,7 +6,7 @@ Description: This is a image gallery plugin for WordPress built using <a href="h
 
 Author: Thrive Website Design
 Author URI: https://thriveweb.com.au/
-Version: 1.1.13
+Version: 2.0.1
 Text Domain: wooswipe
 */
 
@@ -126,6 +126,12 @@ function wooswipe_woocommerce_show_product_thumbnails()
         //Hook Before Wooswipe
         do_action('wooswipe_before_main');
         $zoomed_image_size = array(1920, 1080);
+        $attachment_count = 0;
+        if (method_exists($product, 'get_gallery_image_ids')) {
+            $attachment_count = count($product->get_gallery_image_ids());
+        } else {
+            $attachment_count = count($product->get_gallery_image_ids());
+        }
         if (has_post_thumbnail()) {
             $thumbnail_id   = get_post_thumbnail_id();
             $image_title    = !empty(get_the_excerpt($thumbnail_id)) ? esc_attr(get_the_excerpt($thumbnail_id)) : esc_attr(get_the_title($thumbnail_id));
@@ -146,12 +152,6 @@ function wooswipe_woocommerce_show_product_thumbnails()
                     'alt'       => $alt,
                 )
             );
-
-            if (method_exists($product, 'get_gallery_image_ids')) {
-                $attachment_count = count($product->get_gallery_image_ids());
-            } else {
-                $attachment_count = count($product->get_gallery_image_ids());
-            }
 
             $gallery = $attachment_count > 0 ? '[product-gallery]' : '';
 
@@ -275,6 +275,7 @@ function wooswipe_woocommerce_show_product_thumbnails()
                 </div>
             <?php }
         } else {
+            $featuredArray = array();
             // add main image
             if (has_post_thumbnail()) {
                 $featuredArray[] = get_post_thumbnail_id();

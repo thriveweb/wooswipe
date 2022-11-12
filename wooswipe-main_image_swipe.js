@@ -156,7 +156,6 @@
                 }
             ]
         });
-
         // change pinterest src on slider swipe 
         $('.single-product-main-image').on('swipe', function(event, slick, direction){
             var current_slide = $(".single-product-main-image .slick-active").find("a").attr('data-med');
@@ -166,7 +165,6 @@
                 setup_full_screen_image_url(current_slide);
             }
         });
-
         // change pinterest src on side arrows navigation click
         $("#wooswipe .slick-arrow").on("click", function (event) {
             var current_slide = $(".single-product-main-image .slick-active").find("a").attr('data-med');
