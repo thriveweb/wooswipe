@@ -1,0 +1,128 @@
+#wooswipe {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+#wooswipe .wooswipe-pinit {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
+
+#wooswipe .thumbnails {
+  list-style: none;
+  height: 100px;
+  overflow: hidden;
+  max-height: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+body.elementor #wooswipe .thumbnails, body.elementor-page #wooswipe .thumbnails, body.theme-hello-elementor  #wooswipe .thumbnails {
+  height: auto;
+}
+/* Fix for some themes */
+.woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n+2){
+  width: 100%;
+}
+
+#wooswipe div.single-product-main-image a:hover{
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+#wooswipe li.slick-slide div.single-product-main-image a:hover{
+  cursor: default;
+}
+
+#wooswipe .single-product-main-image-wrap .single-product-main-image {
+  margin-inline-end: 0px;
+  padding-inline-start: 0px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+button.wooswipe-prev {
+  left: 0;
+}
+button.wooswipe-prev.slick-arrow.slick-disabled, button.wooswipe-next.slick-arrow.slick-disabled {
+  cursor: not-allowed;
+}
+button.wooswipe-prev.slick-disabled svg, button.wooswipe-next.slick-disabled svg{
+  opacity: 0.6;
+}
+button.wooswipe-next.slick-arrow {
+  right: 0;
+}
+button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
+  position: absolute;
+  top: 50%;
+  border: none;
+  display: block;
+  cursor: pointer;  
+  z-index: 999;
+}
+
+.single-product-main-image button.wooswipe-prev.slick-arrow {
+  left: 40px;
+}
+
+.single-product-main-image button.wooswipe-next.slick-arrow {
+  right: 40px;
+}
+
+.thumbnail-nav button.wooswipe-next.slick-arrow,.thumbnail-nav button.wooswipe-prev.slick-arrow {
+  top: 35%;
+}
+
+#wooswipe .wooswipe-pinit.wooswipe-mainimagepin {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
+
+.wooswipe-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+}
+
+#wooswipe .wooswipe-popup.wooswipe-mainimagepopup {
+  position: absolute;
+  display: block;
+  top: 25px;
+  right: 35px;
+  width: 25px;
+  height: 25px;
+  z-index: 9;
+}
+
+#wooswipe .wooswipe-popup.wooswipe-mainimagepopup.light-icon img {
+  filter: invert(1);
+}
+
+.site a.wooswipe-mainimagepopup:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+    outline: unset !important; 
+    text-decoration: unset !important;
+    text-decoration-skip-ink: none !important;
+    background: transparent !important;
+}
+.site a.wooswipe-mainimagepopup:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
+  outline: unset !important; 
+}
+#wooswipe .slick-prev.light-icon:before, #wooswipe .slick-next.light-icon:before {
+  filter: invert(1);
+}
+  
+#wooswipe .woocommerce-main-image {
+  cursor: default;
+}
+
