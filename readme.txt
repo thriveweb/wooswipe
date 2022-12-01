@@ -55,7 +55,7 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 = 3.0 =
 * Major update 
-* Recoded with new plugin framwork 
+* Recoded with new plugin framework 
 
 = 2.0.1 =
 * elementor plugin fix
