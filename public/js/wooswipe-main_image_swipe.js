@@ -57,7 +57,7 @@
                     encodeURI(alt) +
                     '"><img src="' +
                     plugin_path +
-                    '/public/pinit/pinterest.svg" alt="Pinterest" /></a>'
+                    'public/pinit/pinterest.svg" alt="Pinterest" /></a>'
                 );
 
             }
