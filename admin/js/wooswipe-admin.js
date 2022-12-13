@@ -50,6 +50,7 @@
 				$(".main_slide_nav").slideDown();
 			} else {
 				$(".main_slide_nav").slideUp();
+				$("#product_main_slider_nav_arrow").prop("checked", false);
 			}
 		});
 	});
