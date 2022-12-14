@@ -77,11 +77,11 @@ class Wooswipe_Public {
 		 */
 
 		$options = $this->wooswipe_options;
-		wp_enqueue_style('wooswipe-pswp-css', plugin_dir_url( __FILE__ ) . '/pswp/photoswipe.css', array(), $this->version, 'all');
-		if ($options['white_theme']) wp_enqueue_style( 'wooswipe-pswp-skin-white', plugin_dir_url( __FILE__ ) . '/pswp/white-skin/skin.css', array(), $this->version, 'all' );
-		else wp_enqueue_style( 'wooswipe-pswp-skin', plugin_dir_url( __FILE__ ) . '/pswp/default-skin/default-skin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'wooswipe-slick-css', plugin_dir_url( __FILE__ ) . '/slick/slick.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'wooswipe-slick-theme', plugin_dir_url( __FILE__ ) . '/slick/slick-theme.css', array(), $this->version, 'all' );
+		wp_enqueue_style('wooswipe-pswp-css', plugin_dir_url( __FILE__ ) . 'pswp/photoswipe.css', array(), $this->version, 'all');
+		if ($options['white_theme']) wp_enqueue_style( 'wooswipe-pswp-skin-white', plugin_dir_url( __FILE__ ) . 'pswp/white-skin/skin.css', array(), $this->version, 'all' );
+		else wp_enqueue_style( 'wooswipe-pswp-skin', plugin_dir_url( __FILE__ ) . 'pswp/default-skin/default-skin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'wooswipe-slick-css', plugin_dir_url( __FILE__ ) . 'slick/slick.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'wooswipe-slick-theme', plugin_dir_url( __FILE__ ) . 'slick/slick-theme.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'wooswipe-css', plugin_dir_url( __FILE__ ) . 'css/wooswipe.css', array(), $this->version, 'all' );
 	}
 
@@ -106,9 +106,9 @@ class Wooswipe_Public {
 
 		$options = $this->wooswipe_options;
 		$wooswipe_wp_plugin_path =  plugins_url() . '/wooswipe';
-		wp_enqueue_script( 'wooswipe-pswp', plugin_dir_url( __FILE__ ) . '/pswp/photoswipe.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( 'wooswipe-pswp-ui', plugin_dir_url( __FILE__ ) . '/pswp/photoswipe-ui-default.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( 'wooswipe-slick', plugin_dir_url( __FILE__ ) . '/slick/slick.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'wooswipe-pswp', plugin_dir_url( __FILE__ ) . 'pswp/photoswipe.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'wooswipe-pswp-ui', plugin_dir_url( __FILE__ ) . 'pswp/photoswipe-ui-default.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'wooswipe-slick', plugin_dir_url( __FILE__ ) . 'slick/slick.min.js', array( 'jquery' ), $this->version, false );
 		$wooswipe_data = array();
 		$template_Url = array('templateUrl' => $wooswipe_wp_plugin_path);
         if ($options['pinterest']) {
@@ -135,13 +135,13 @@ class Wooswipe_Public {
                 $wooswipe_data['product_main_slider_nav_arrow'] = true;
             }
             $wooswipe_data['product_main_slider'] =  true;
-			wp_enqueue_script('wooswipe-main-image-swipe-js', plugin_dir_url( __FILE__ ) . '/js/wooswipe-main_image_swipe.js', null, null, true);
+			wp_enqueue_script('wooswipe-main-image-swipe-js', plugin_dir_url( __FILE__ ) . 'js/wooswipe-main_image_swipe.js', null, null, true);
             wp_localize_script('wooswipe-main-image-swipe-js', 'wooswipe_wp_plugin_path', $template_Url);
             wp_localize_script('wooswipe-main-image-swipe-js', 'wooswipe_data', $wooswipe_data);
             
         } else {
             $wooswipe_data['product_main_slider'] =  false;
-            wp_enqueue_script('wooswipe-js', plugin_dir_url( __FILE__ ) . '/js/wooswipe.js', null, null, true);
+            wp_enqueue_script('wooswipe-js', plugin_dir_url( __FILE__ ) . 'js/wooswipe.js', null, null, true);
             wp_localize_script('wooswipe-js', 'wooswipe_wp_plugin_path', $template_Url);
             wp_localize_script('wooswipe-js', 'wooswipe_data', $wooswipe_data);
         }
