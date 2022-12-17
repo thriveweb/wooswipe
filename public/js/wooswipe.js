@@ -52,7 +52,7 @@
                 encodeURI(alt) +
                 '"><img src="' +
                 plugin_path +
-                '/public/pinit/pinterest.svg" alt="Pinterest" /></a>'
+                'public/pinit/pinterest.svg" alt="Pinterest" /></a>'
             );
             }
             // set up pin for place holder image 
@@ -66,7 +66,7 @@
                     encodeURI(alt) +
                     '"><img src="' +
                     plugin_path +
-                    '/public/pinit/pinterest.svg" alt="Pinterest" /></a>'
+                    'public/pinit/pinterest.svg" alt="Pinterest" /></a>'
                 );
             }
             // popit new window

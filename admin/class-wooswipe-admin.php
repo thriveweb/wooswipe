@@ -153,7 +153,7 @@ class Wooswipe_Admin
 	 */
 	public function wooswipe_show_admin_settings_form()
 	{
-		include plugin_dir_path(__FILE__) . '/partials/wooswipe-admin-display.php';
+		include plugin_dir_path(__FILE__) .'partials/wooswipe-admin-display.php';
 	}
 
 	/**
