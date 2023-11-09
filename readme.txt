@@ -4,9 +4,9 @@ Author: Web Design Gold Coast
 Author URI: https://thriveweb.com.au/
 Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery, responsive
-Requires at least: 3.0
-Tested up to: 6.1.1
-Stable tag: 3.0.3
+Requires at least: 6.0
+Tested up to: 6.4
+Stable tag: 3.0.5
 
 A WooCommerce gallery plugin built using PhotoSwipe from Dmitry Semenov and Slick carousel.
 
@@ -52,6 +52,9 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
+
+= 3.0.5 =
+* Readme update
 
 = 3.0.3 =
 * Major update to address minor security issues 

@@ -16,7 +16,7 @@
  * Plugin Name:       WooSwipe
  * Plugin URI:        https://thriveweb.com.au/the-lab/wooswipe/
  * Description:       This is a image gallery plugin for WordPress built using <a href="http://photoswipe.com.au/">photoswipe</a> from Dmitry Semenov and <a href="http://kenwheeler.github.io/slick/">Slick</a> Carousel</a>.
- * Version:           3.0.3
+ * Version:           3.0.5
  * Author:            Thrive Website Design
  * Author URI:        https://thriveweb.com.au/
  * License:           GPL-2.0+
