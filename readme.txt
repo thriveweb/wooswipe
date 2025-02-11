@@ -6,7 +6,7 @@ Plugin URI: https://thriveweb.com.au/the-lab/wooswipe/
 Tags: WooSwipe, woocommerce, woocommerce gallery, products, product gallery
 Requires at least: 6.0
 Tested up to: 6.7.1
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ Join the chat at https://gitter.im/thriveweb/wooswipe
 1. Screenshot Default gallery layout
 2. Screenshot Popup layout
 
-= 3.0.7 =
+= 3.0.8 =
 * Readme update
 * Tested with WP 6.7.1 + WC 7.0.0
 
