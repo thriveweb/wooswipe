@@ -1,6 +1,8 @@
 name: Deploy to WordPress.org
 
 on:
+  pull_request:
+  workflow_dispatch:
   push:
     tags:
       - "*"
@@ -10,14 +12,16 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy tagged release
+    name: Validate or deploy plugin
     runs-on: ubuntu-latest
     steps:
       - name: Check out plugin
         uses: actions/checkout@v4
 
-      - name: Deploy to WordPress.org
+      - name: Validate or deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          dry-run: ${{ github.event_name != 'push' }}
         env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ github.event_name == 'push' && secrets.SVN_USERNAME || '' }}
+          SVN_PASSWORD: ${{ github.event_name == 'push' && secrets.SVN_PASSWORD || '' }}
