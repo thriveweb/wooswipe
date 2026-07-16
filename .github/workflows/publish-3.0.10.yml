@@ -1,0 +1,35 @@
+name: Publish WooSwipe 3.0.10
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/publish-3.0.10.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Tag and publish 3.0.10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out plugin
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create release tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a 3.0.10 -m "WooSwipe 3.0.10"
+          git push origin 3.0.10
+
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          VERSION: 3.0.10
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
