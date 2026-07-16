@@ -25,7 +25,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git rev-parse "refs/tags/3.0.10" >/dev/null 2>&1; then
-            echo "Tag 3.0.10 already exists"
+            echo "Tag 3.0.10 already exists, retrying WordPress.org deployment"
           else
             git tag -a 3.0.10 -m "WooSwipe 3.0.10"
             git push origin 3.0.10
