@@ -81,6 +81,38 @@ class Wooswipe {
 	}
 
 	/**
+	 * Default plugin options.
+	 *
+	 * @since 3.0.9
+	 * @return array
+	 */
+	public static function get_default_options() {
+		return array(
+			'white_theme'                   => false,
+			'pinterest'                     => false,
+			'hide_thumbnails'               => false,
+			'remove_thumb_slider'           => false,
+			'product_main_slider'           => false,
+			'product_main_slider_nav_arrow' => false,
+			'icon_bg_color'                 => '#000000',
+			'icon_stroke_color'             => '#ffffff',
+		);
+	}
+
+	/**
+	 * Get plugin options merged with defaults.
+	 *
+	 * Always use this instead of get_option( 'wooswipe_options' ) directly
+	 * so missing keys do not trigger PHP notices.
+	 *
+	 * @since 3.0.9
+	 * @return array
+	 */
+	public static function get_options() {
+		return wp_parse_args( (array) get_option( 'wooswipe_options', array() ), self::get_default_options() );
+	}
+
+	/**
 	 * Load the required dependencies for this plugin.
 	 *
 	 * Include the following files that make up the plugin:
@@ -157,7 +189,6 @@ class Wooswipe {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu',$plugin_admin, 'wooswipe_admin_menu', 99 );
-		$this->loader->add_action( 'init',$plugin_admin, 'wooswipe_get_current_user_roles');
 		$this->loader->add_action( 'admin_init',$plugin_admin, 'wooswipe_save_admin_options');
 		
 

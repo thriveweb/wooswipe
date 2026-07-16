@@ -15,14 +15,19 @@
  * @wordpress-plugin
  * Plugin Name:       WooSwipe
  * Plugin URI:        https://thriveweb.com.au/the-lab/wooswipe/
- * Description:       This is a image gallery plugin for WordPress built using <a href="http://photoswipe.com.au/">photoswipe</a> from Dmitry Semenov and <a href="http://kenwheeler.github.io/slick/">Slick</a> Carousel</a>.
- * Version:           3.0.8
+ * Description:       WooCommerce product gallery built with PhotoSwipe and Slick carousel. Responsive, touch-friendly, with lightbox and optional main-image slider.
+ * Version:           3.0.9
  * Author:            Thrive Website Design
  * Author URI:        https://thriveweb.com.au/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wooswipe
  * Domain Path:       /languages
+ * Requires at least: 6.0
+ * Requires PHP:      7.4
+ * WC requires at least: 7.0
+ * WC tested up to:   10.9
+ * Requires Plugins:  woocommerce
  */
 
 // If this file is called directly, abort.
@@ -31,17 +36,20 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
+ * Current plugin version (SemVer).
+ *
+ * Keep in sync with the Version header above and readme.txt Stable tag.
+ *
+ * @since 1.0.0
  */
-define( 'WOOSWIPE_VERSION', '3.0.8' );
+define( 'WOOSWIPE_VERSION', '3.0.9' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wooswipe-activator.php
  */
 function activate_wooswipe() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wooswipe.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wooswipe-activator.php';
 	Wooswipe_Activator::activate();
 }

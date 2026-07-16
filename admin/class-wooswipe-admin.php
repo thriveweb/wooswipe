@@ -13,15 +13,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
  * @package    Wooswipe
  * @subpackage Wooswipe/admin
  * @author     Thrive Website Design <dean@thriveweb.com.au>
  */
-class Wooswipe_Admin
-{
+class Wooswipe_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -42,51 +38,35 @@ class Wooswipe_Admin
 	private $version;
 
 	/**
-	 * Initialize the class and set its properties.
+	 * Plugin options.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-
-	/**
-	 * Get wooswipe default options
+	 * @var array
 	 */
 	protected $wooswipe_options;
 
 	/**
-	 * $is_admin will store flag for the admin type user role
+	 * Initialize the class and set its properties.
+	 *
+	 * @since    1.0.0
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version     The version of this plugin.
 	 */
-	protected $is_admin;
-
-	public function __construct($plugin_name, $version)
-	{
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-		$this->is_admin = false;
-		$this->wooswipe_options = get_option('wooswipe_options');
+	public function __construct( $plugin_name, $version ) {
+		$this->plugin_name      = $plugin_name;
+		$this->version          = $version;
+		$this->wooswipe_options = Wooswipe::get_options();
 	}
 
 	/**
-	 * Save option data for the wooswipe plugin
-	 * 
-	 * @since    1.0.0
+	 * Seed default option values when missing.
+	 *
+	 * @since 1.0.0
+	 * @since 3.0.9 Uses manage_options and shared defaults helper.
 	 */
-	public function wooswipe_save_default_values()
-	{
-
-		$options = $this->wooswipe_options;
-		$this->is_admin = $this->wooswipe_get_current_user_roles();
-		if (!is_array($options) && current_user_can('manage_options') && $this->is_admin) {
-			$options['white_theme'] = (bool)false;
-			$options['pinterest'] = (bool)false;
-			$options['hide_thumbnails'] = (bool)false;
-			$options['remove_thumb_slider'] = (bool)false;
-			$options['product_main_slider'] = (bool)false;
-			$options['product_main_slider_nav_arrow'] = (bool)false;
-			$options['icon_bg_color'] = sanitize_text_field("#000000");
-			$options['icon_stroke_color'] = sanitize_text_field("#ffffff");
-			$this->wooswipe_update_settings($options);
+	public function wooswipe_save_default_values() {
+		$options = get_option( 'wooswipe_options', false );
+		if ( false === $options && current_user_can( 'manage_options' ) ) {
+			$this->wooswipe_update_settings( Wooswipe::get_default_options() );
 		}
 	}
 
@@ -95,22 +75,8 @@ class Wooswipe_Admin
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles()
-	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wooswipe_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wooswipe_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/wooswipe-admin.css', array(), $this->version, 'all');
+	public function enqueue_styles() {
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wooswipe-admin.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -118,137 +84,91 @@ class Wooswipe_Admin
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts()
-	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wooswipe_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wooswipe_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wooswipe-admin.js', array('jquery'), $this->version, false);
+	public function enqueue_scripts() {
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wooswipe-admin.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
-	 * Register Admin Menu for WooSwipe
-	 * 
+	 * Register Admin Menu for WooSwipe.
+	 *
 	 * @since    1.0.0
 	 */
-	public function wooswipe_admin_menu()
-	{
-		add_submenu_page('woocommerce', 'WooSwipe', 'WooSwipe', 'manage_options', 'wooswipe-options', array($this, 'wooswipe_show_admin_settings_form'));
+	public function wooswipe_admin_menu() {
+		add_submenu_page( 'woocommerce', 'WooSwipe', 'WooSwipe', 'manage_options', 'wooswipe-options', array( $this, 'wooswipe_show_admin_settings_form' ) );
 	}
 
 	/**
-	 * Display Admin Form WooSwipe
-	 * 
+	 * Display Admin Form WooSwipe.
+	 *
 	 * @since    1.0.0
 	 */
-	public function wooswipe_show_admin_settings_form()
-	{
-		include plugin_dir_path(__FILE__) .'partials/wooswipe-admin-display.php';
+	public function wooswipe_show_admin_settings_form() {
+		include plugin_dir_path( __FILE__ ) . 'partials/wooswipe-admin-display.php';
 	}
 
 	/**
-	 * Save / Update the WooSwipe settings Options
-	 * 
+	 * Save / update WooSwipe settings.
+	 *
+	 * Requires manage_options and a valid nonce. Colours are sanitised with
+	 * sanitize_hex_color(); checkbox flags are stored as booleans.
+	 *
+	 * @since 1.0.0
+	 * @since 3.0.9 Hardened nonce/capability checks and input sanitisation.
+	 * @return bool
 	 */
-	public function wooswipe_save_admin_options()
-	{	
-		$this->is_admin = $this->wooswipe_get_current_user_roles();
-		
-		if (isset($_POST['wooswipe_nonce_field']) && $this->is_admin) {
-
-			$options = get_option('wooswipe_options');
-
-			if (isset($_POST['white_theme'])) {
-				$options['white_theme'] = (bool)true;
-			} else {
-				$options['white_theme'] = (bool)false;
-			}
-
-			if (isset($_POST['pinterest'])) {
-				$options['pinterest'] = (bool)true;
-			} else {
-				$options['pinterest'] = (bool)false;
-			}
-
-			if (isset($_POST['hide_thumbnails'])) {
-				$options['hide_thumbnails'] = (bool)true;
-			} else {
-				$options['hide_thumbnails'] = (bool)false;
-			}
-
-			if (isset($_POST['product_main_slider'])) {
-				$options['product_main_slider'] = (bool)true;
-			} else {
-				$options['product_main_slider'] = (bool)false;
-			}
-
-			if (isset($_POST['product_main_slider_nav_arrow'])) {
-				$options['product_main_slider_nav_arrow'] = (bool)true;
-			} else {
-				$options['product_main_slider_nav_arrow'] = (bool)false;
-			}
-
-
-			if (isset($_POST['remove_thumb_slider'])) {
-				$options['remove_thumb_slider'] = (bool)true;
-			} else {
-				$options['remove_thumb_slider'] = (bool)false;
-			}
-
-			if (isset($_POST['icon_bg_color'])) {
-				$options['icon_bg_color'] = sanitize_text_field($_POST['icon_bg_color']);
-			} else {
-				$options['icon_bg_color'] = sanitize_text_field('#000000');
-			}
-
-			if (isset($_POST['icon_stroke_color'])) {
-				$options['icon_stroke_color'] = sanitize_text_field($_POST['icon_stroke_color']);
-			} else {
-				$options['icon_stroke_color'] = sanitize_text_field('#ffffff');
-			}
-			if (isset($_POST['wooswipe_nonce_field']) && wp_verify_nonce($_POST['wooswipe_nonce_field'], 'wooswipe_nonce_action') == 1) {
-				$this->wooswipe_update_settings($options);
-			}
-			return true;
-		} else {
+	public function wooswipe_save_admin_options() {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
-	}
 
-	public function wooswipe_update_settings($options) {
-		update_option('wooswipe_options', $options);
+		if ( ! isset( $_POST['wooswipe_nonce_field'] ) ) {
+			return false;
+		}
+
+		$nonce = sanitize_text_field( wp_unslash( $_POST['wooswipe_nonce_field'] ) );
+		if ( ! wp_verify_nonce( $nonce, 'wooswipe_nonce_action' ) ) {
+			return false;
+		}
+
+		$options = Wooswipe::get_options();
+
+		$options['white_theme']                   = isset( $_POST['white_theme'] );
+		$options['pinterest']                     = isset( $_POST['pinterest'] );
+		$options['hide_thumbnails']               = isset( $_POST['hide_thumbnails'] );
+		$options['product_main_slider']           = isset( $_POST['product_main_slider'] );
+		$options['product_main_slider_nav_arrow'] = isset( $_POST['product_main_slider_nav_arrow'] );
+		$options['remove_thumb_slider']           = isset( $_POST['remove_thumb_slider'] );
+
+		if ( isset( $_POST['icon_bg_color'] ) ) {
+			$options['icon_bg_color'] = sanitize_hex_color( wp_unslash( $_POST['icon_bg_color'] ) );
+			if ( empty( $options['icon_bg_color'] ) ) {
+				$options['icon_bg_color'] = '#000000';
+			}
+		} else {
+			$options['icon_bg_color'] = '#000000';
+		}
+
+		if ( isset( $_POST['icon_stroke_color'] ) ) {
+			$options['icon_stroke_color'] = sanitize_hex_color( wp_unslash( $_POST['icon_stroke_color'] ) );
+			if ( empty( $options['icon_stroke_color'] ) ) {
+				$options['icon_stroke_color'] = '#ffffff';
+			}
+		} else {
+			$options['icon_stroke_color'] = '#ffffff';
+		}
+
+		$this->wooswipe_update_settings( $options );
+		$this->wooswipe_options = $options;
+
+		return true;
 	}
 
 	/**
-	 * Get current logged in user's role
-	 * 
+	 * Persist settings.
+	 *
+	 * @param array $options Options array.
 	 */
-	public function wooswipe_get_current_user_roles()
-	{
-
-		if (is_user_logged_in()) {
-
-			$user = wp_get_current_user();
-
-			$loggedin_userroles = (array) $user->roles;
-
-			if(isset($loggedin_userroles) && in_array('administrator', $loggedin_userroles)) {
-				return true; // This will returns an array
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+	public function wooswipe_update_settings( $options ) {
+		update_option( 'wooswipe_options', $options );
 	}
 }
