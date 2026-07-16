@@ -45,6 +45,16 @@ class Wooswipe_Public {
 	public $wooswipe_options;
 
 	/**
+	 * Whether the gallery markup has already been rendered on this request.
+	 *
+	 * Prevents classic hooks + block-theme gallery block from both outputting.
+	 *
+	 * @since 3.0.10
+	 * @var bool
+	 */
+	private static $gallery_rendered = false;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since 1.0.0
@@ -125,8 +135,8 @@ class Wooswipe_Public {
 
 		$template_Url  = array( 'templateUrl' => $wooswipe_wp_plugin_path );
 		$wooswipe_data = array(
-			'addpin'         => ! empty( $options['pinterest'] ),
-			'icon_bg_color'  => ! empty( $options['icon_bg_color'] ) ? $options['icon_bg_color'] : '#000000',
+			'addpin'            => ! empty( $options['pinterest'] ),
+			'icon_bg_color'     => ! empty( $options['icon_bg_color'] ) ? $options['icon_bg_color'] : '#000000',
 			'icon_stroke_color' => ! empty( $options['icon_stroke_color'] ) ? $options['icon_stroke_color'] : '#ffffff',
 		);
 
@@ -178,7 +188,17 @@ class Wooswipe_Public {
 	}
 
 	/**
-	 * Remove default WooCommerce product images output.
+	 * Whether this request should use the block product gallery replacement path.
+	 *
+	 * @since 3.0.10
+	 * @return bool
+	 */
+	private function is_block_product_gallery_context() {
+		return function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+	}
+
+	/**
+	 * Remove default WooCommerce product images output (classic templates).
 	 */
 	public function wooswipe_woocommerce_before_single_product_summary() {
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
@@ -191,6 +211,59 @@ class Wooswipe_Public {
 		remove_theme_support( 'wc-product-gallery-zoom' );
 		remove_theme_support( 'wc-product-gallery-lightbox' );
 		remove_theme_support( 'wc-product-gallery-slider' );
+	}
+
+	/**
+	 * Replace the WooCommerce product image gallery block with WooSwipe.
+	 *
+	 * Block themes (e.g. Twenty Twenty-Four) render images via
+	 * `woocommerce/product-image-gallery` instead of the classic
+	 * `woocommerce_show_product_images` action. Without this, both galleries appear.
+	 *
+	 * @since 3.0.10
+	 * @param string $block_content Block HTML.
+	 * @param array  $block         Block data.
+	 * @return string
+	 */
+	public function render_product_image_gallery_block( $block_content, $block ) {
+		if ( ! is_singular( 'product' ) ) {
+			return $block_content;
+		}
+
+		ob_start();
+		$this->render_gallery();
+		$gallery = ob_get_clean();
+
+		return $gallery ? $gallery : $block_content;
+	}
+
+	/**
+	 * Output gallery for classic (non-block) single product templates.
+	 *
+	 * On block themes the gallery is rendered via
+	 * {@see render_product_image_gallery_block()} so we skip classic output
+	 * to avoid a duplicate full-width gallery.
+	 */
+	public function wooswipe_woocommerce_show_product_thumbnails() {
+		if ( $this->is_block_product_gallery_context() ) {
+			return;
+		}
+		$this->render_gallery();
+	}
+
+	/**
+	 * Render WooSwipe gallery markup once per request.
+	 *
+	 * @since 3.0.10
+	 */
+	private function render_gallery() {
+		if ( self::$gallery_rendered ) {
+			return;
+		}
+		self::$gallery_rendered = true;
+
+		include plugin_dir_path( __FILE__ ) . 'partials/wooswipe-public-display.php';
+		include_once plugin_dir_path( __FILE__ ) . 'partials/inc-photoswipe-footer.php';
 	}
 
 	/**
@@ -252,7 +325,7 @@ class Wooswipe_Public {
 	/**
 	 * Build Swiper for the Main Image.
 	 *
-	 * @param array $finalArray         Attachment IDs.
+	 * @param array $finalArray        Attachment IDs.
 	 * @param array $zoomed_image_size Zoomed size.
 	 */
 	public function wooswipe_woocommerce_show_product_main_image_swiper( $finalArray, $zoomed_image_size ) {
@@ -278,14 +351,6 @@ class Wooswipe_Public {
 			esc_attr( $dimensions['width'] )
 		);
 		echo apply_filters( 'woocommerce_single_product_image_html', $html, $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
-
-	/**
-	 * Build gallery markup.
-	 */
-	public function wooswipe_woocommerce_show_product_thumbnails() {
-		include plugin_dir_path( __FILE__ ) . 'partials/wooswipe-public-display.php';
-		include_once plugin_dir_path( __FILE__ ) . 'partials/inc-photoswipe-footer.php';
 	}
 
 }

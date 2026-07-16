@@ -204,16 +204,18 @@ class Wooswipe {
 	private function define_public_hooks() {
 
 		$plugin_public = new Wooswipe_Public( $this->get_plugin_name(), $this->get_version() );
-		
-		$this->loader->add_action('setup_theme',$plugin_public, 'remove_woocommerce_theme_support');
+
+		$this->loader->add_action( 'setup_theme', $plugin_public, 'remove_woocommerce_theme_support' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'wooswipe_theme_setup' );
-		$this->loader->add_action('wp_print_scripts', $plugin_public,'wooswipe_deregister_javascript',100);
-		$this->loader->add_action('wp_print_styles',$plugin_public,'wooswipe_deregister_styles',100);
-		$this->loader->add_action('woocommerce_before_single_product_summary',$plugin_public,'wooswipe_woocommerce_before_single_product_summary');
-		$this->loader->add_action('woocommerce_before_single_product_summary',$plugin_public,'wooswipe_woocommerce_show_product_thumbnails',20);
-		$this->loader->add_action('wp',$plugin_public,'wooswipe_remove_image_zoom_support');
+		$this->loader->add_action( 'wp_print_scripts', $plugin_public, 'wooswipe_deregister_javascript', 100 );
+		$this->loader->add_action( 'wp_print_styles', $plugin_public, 'wooswipe_deregister_styles', 100 );
+		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_public, 'wooswipe_woocommerce_before_single_product_summary' );
+		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_public, 'wooswipe_woocommerce_show_product_thumbnails', 20 );
+		// Block themes render the gallery via the product-image-gallery block — replace it so we don't get a double gallery.
+		$this->loader->add_filter( 'render_block_woocommerce/product-image-gallery', $plugin_public, 'render_product_image_gallery_block', 10, 2 );
+		$this->loader->add_action( 'wp', $plugin_public, 'wooswipe_remove_image_zoom_support' );
 
 	}
 

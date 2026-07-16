@@ -1,6 +1,30 @@
 #wooswipe {
   position: relative;
   padding-bottom: 20px;
+  /* Block themes already place the gallery in a column — don't also apply
+     classic WC `.images { float:left; width:48% }` or it shrinks to ~half. */
+  float: none !important;
+  width: 100% !important;
+  max-width: 100%;
+  margin: 0 0 1em;
+  box-sizing: border-box;
+}
+
+#wooswipe .single-product-main-image,
+#wooswipe .woocommerce-product-gallery__image,
+#wooswipe .single-product-main-image-wrap {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+#wooswipe .single-product-main-image img,
+#wooswipe .wp-post-image,
+#wooswipe .single-product-main-image-ul img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 #wooswipe .wooswipe-pinit {
@@ -19,6 +43,30 @@
   max-height: 100%;
   padding: 0;
   margin-bottom: 20px;
+  width: 100%;
+}
+
+#wooswipe .thumbnails .thumb,
+#wooswipe .thumbnails .thumb img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+#wooswipe .thumbnail-nav {
+  width: 100%;
+}
+
+#wooswipe .thumbnail-nav .slick-slide {
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+#wooswipe .thumbnail-nav .slick-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 100px;
 }
 
 body.elementor #wooswipe .thumbnails, body.elementor-page #wooswipe .thumbnails, body.theme-hello-elementor  #wooswipe .thumbnails {
@@ -60,10 +108,21 @@ button.wooswipe-next.slick-arrow {
 button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
   display: block;
-  cursor: pointer;  
+  cursor: pointer;
   z-index: 999;
+}
+
+button.wooswipe-next.slick-arrow svg,
+button.wooswipe-prev.slick-arrow svg {
+  display: block;
+  vertical-align: middle;
 }
 
 .single-product-main-image button.wooswipe-prev.slick-arrow {
@@ -74,8 +133,11 @@ button.wooswipe-next.slick-arrow, button.wooswipe-prev.slick-arrow {
   right: 40px;
 }
 
-.thumbnail-nav button.wooswipe-next.slick-arrow,.thumbnail-nav button.wooswipe-prev.slick-arrow {
-  top: 35%;
+/* Vertically center thumbnail arrows (was incorrectly top: 35%) */
+#wooswipe .thumbnail-nav button.wooswipe-next.slick-arrow,
+#wooswipe .thumbnail-nav button.wooswipe-prev.slick-arrow {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #wooswipe .wooswipe-pinit.wooswipe-mainimagepin {

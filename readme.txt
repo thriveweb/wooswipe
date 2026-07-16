@@ -10,7 +10,7 @@ Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 10.9
-Stable tag: 3.0.9
+Stable tag: 3.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,12 @@ Yes. Use `[product_page id="123"]` with the correct product ID.
 2. Popup / lightbox layout
 
 == Changelog ==
+
+= 3.0.10 =
+* Fix: double gallery on block themes (Twenty Twenty-Four etc.) — replace `woocommerce/product-image-gallery` block instead of also dumping via classic hooks
+* Fix: gallery width on block themes (classic WC `.images { width:48% }` was shrinking WooSwipe inside the column)
+* Fix: constrain thumbnail image sizing so thumbs don’t render full-width
+* Fix: vertically center thumbnail nav arrows (`top: 35%` → `top: 50%` + translateY)
 
 = 3.0.9 =
 * Fix: featured-image exclusion via `woocommerce_single_product_image_thumbnail_html` now applies to the main image as well as thumbnails
@@ -259,6 +265,9 @@ Yes. Use `[product_page id="123"]` with the correct product ID.
 * First version
 
 == Upgrade Notice ==
+
+= 3.0.10 =
+Fixes duplicate galleries on block themes (e.g. Twenty Twenty-Four). Recommended update.
 
 = 3.0.9 =
 Recommended update: featured-image exclusion, variation switching, PHP 8 safety, and admin/settings hardening. Tested with WordPress 7.0 and WooCommerce 10.9.
