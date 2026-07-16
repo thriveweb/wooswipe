@@ -23,5 +23,5 @@ jobs:
         with:
           dry-run: ${{ github.event_name != 'push' }}
         env:
-          SVN_USERNAME: ${{ github.event_name == 'push' && secrets.SVN_USERNAME || '' }}
-          SVN_PASSWORD: ${{ github.event_name == 'push' && secrets.SVN_PASSWORD || '' }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
