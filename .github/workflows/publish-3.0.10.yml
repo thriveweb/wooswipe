@@ -24,8 +24,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a 3.0.10 -m "WooSwipe 3.0.10"
-          git push origin 3.0.10
+          if git rev-parse "refs/tags/3.0.10" >/dev/null 2>&1; then
+            echo "Tag 3.0.10 already exists"
+          else
+            git tag -a 3.0.10 -m "WooSwipe 3.0.10"
+            git push origin 3.0.10
+          fi
 
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable
