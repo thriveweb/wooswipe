@@ -23,5 +23,6 @@ jobs:
         with:
           dry-run: ${{ github.event_name != 'push' }}
         env:
+          VERSION: ${{ github.event_name == 'push' && github.ref_name || '3.0.9-test' }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
