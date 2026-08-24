@@ -215,6 +215,7 @@ class Wooswipe {
 		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_public, 'wooswipe_woocommerce_show_product_thumbnails', 20 );
 		// Block themes render the gallery via the product-image-gallery block — replace it so we don't get a double gallery.
 		$this->loader->add_filter( 'render_block_woocommerce/product-image-gallery', $plugin_public, 'render_product_image_gallery_block', 10, 2 );
+		$this->loader->add_filter( 'body_class', $plugin_public, 'body_class' );
 		$this->loader->add_action( 'wp', $plugin_public, 'wooswipe_remove_image_zoom_support' );
 
 	}

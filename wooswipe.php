@@ -16,7 +16,7 @@
  * Plugin Name:       WooSwipe
  * Plugin URI:        https://thriveweb.com.au/the-lab/wooswipe/
  * Description:       WooCommerce product gallery built with PhotoSwipe and Slick carousel. Responsive, touch-friendly, with lightbox and optional main-image slider.
- * Version:           3.0.10
+ * Version:           3.0.11
  * Author:            Thrive Website Design
  * Author URI:        https://thriveweb.com.au/
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * WC requires at least: 7.0
- * WC tested up to:   10.9
+ * WC tested up to:   11.0
  * Requires Plugins:  woocommerce
  */
 
@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.0.0
  */
-define( 'WOOSWIPE_VERSION', '3.0.10' );
+define( 'WOOSWIPE_VERSION', '3.0.11' );
 
 /**
  * The code that runs during plugin activation.

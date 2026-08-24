@@ -194,7 +194,32 @@ class Wooswipe_Public {
 	 * @return bool
 	 */
 	private function is_block_product_gallery_context() {
-		return function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		$is_block = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+
+		/**
+		 * Filter whether WooSwipe should treat the current request as a block-theme gallery.
+		 *
+		 * Block themes place the gallery in a column, so WooSwipe must not inherit
+		 * classic WooCommerce `.images { width:48% }` layout.
+		 *
+		 * @since 3.0.11
+		 * @param bool $is_block Whether this is a block-theme gallery context.
+		 */
+		return (bool) apply_filters( 'wooswipe_is_block_gallery', $is_block );
+	}
+
+	/**
+	 * Add a body class so classic vs block gallery layout CSS can be scoped.
+	 *
+	 * @since 3.0.11
+	 * @param string[] $classes Body classes.
+	 * @return string[]
+	 */
+	public function body_class( $classes ) {
+		if ( $this->is_block_product_gallery_context() ) {
+			$classes[] = 'wooswipe-block-gallery';
+		}
+		return $classes;
 	}
 
 	/**

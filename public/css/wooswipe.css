@@ -1,13 +1,23 @@
 #wooswipe {
   position: relative;
   padding-bottom: 20px;
-  /* Block themes already place the gallery in a column — don't also apply
-     classic WC `.images { float:left; width:48% }` or it shrinks to ~half. */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+ * Classic WooCommerce templates use `.images { float:left; width:48% }` beside
+ * `.summary`. Do not set width/float on #wooswipe globally — an ID + 100%
+ * (especially with !important) makes the gallery full-width and stacks the
+ * product summary below it.
+ *
+ * Block themes already put the gallery in a column, so restore 100% there only.
+ */
+body.wooswipe-block-gallery #wooswipe,
+.wp-block-woocommerce-product-image-gallery #wooswipe {
   float: none !important;
   width: 100% !important;
-  max-width: 100%;
   margin: 0 0 1em;
-  box-sizing: border-box;
 }
 
 #wooswipe .single-product-main-image,

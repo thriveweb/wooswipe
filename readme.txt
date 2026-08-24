@@ -9,8 +9,8 @@ Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 7.0
-WC tested up to: 10.9
-Stable tag: 3.0.10
+WC tested up to: 11.0
+Stable tag: 3.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,7 @@ It works with your WooCommerce product image settings. Adjust sizes under **Appe
 
 * `wooswipe_zoomed_image_size` — lightbox / zoom image size (default roughly 1920×1080)
 * `wooswipe_include_attachment` — return `false` to exclude an attachment from the gallery
+* `wooswipe_is_block_gallery` — return `true`/`false` to force block-theme (full-width-in-column) vs classic two-column layout
 * `woocommerce_single_product_image_thumbnail_html` — returning an empty string for an attachment also excludes it from the main image and thumbs (see FAQ)
 
 = Zoomed image size example =
@@ -112,12 +113,19 @@ This is usually a JavaScript conflict. Try:
 
 Yes. Use `[product_page id="123"]` with the correct product ID.
 
+= The gallery is full width and product details sit underneath =
+
+That was a 3.0.10 regression on classic (PHP) themes: WooSwipe forced `#wooswipe` to `width: 100%`. Update to 3.0.11. Block themes (Twenty Twenty-Four / Twenty Twenty-Five) still use a full-width gallery inside their column.
+
 == Screenshots ==
 
 1. Default gallery layout
 2. Popup / lightbox layout
 
 == Changelog ==
+
+= 3.0.11 =
+* Fix: gallery no longer forced to full width on classic (non-block) themes. 3.0.10 set `#wooswipe { width:100% !important }` for block-theme columns, which overrode WooCommerce’s 48% `.images` / `.summary` two-column layout (gallery stacked above product details). Full-width is now scoped to block themes only (`body.wooswipe-block-gallery` / product-image-gallery block).
 
 = 3.0.10 =
 * Fix: double gallery on block themes (Twenty Twenty-Four etc.) — replace `woocommerce/product-image-gallery` block instead of also dumping via classic hooks
@@ -265,6 +273,9 @@ Yes. Use `[product_page id="123"]` with the correct product ID.
 * First version
 
 == Upgrade Notice ==
+
+= 3.0.11 =
+Fixes the product gallery stretching full width on classic themes (summary should sit beside the images). Recommended update.
 
 = 3.0.10 =
 Fixes duplicate galleries on block themes (e.g. Twenty Twenty-Four). Recommended update.
