@@ -10,7 +10,7 @@ Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 11.0
-Stable tag: 3.0.12
+Stable tag: 3.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,10 +119,14 @@ That was a 3.0.10 regression on classic (PHP) themes: WooSwipe forced `#wooswipe
 
 == Screenshots ==
 
-1. Default gallery layout
+1. Gallery with a large main image, thumbnail strip and circular navigation arrows
 2. Popup / lightbox layout
 
 == Changelog ==
+
+= 3.0.13 =
+* Update the WordPress.org banners to show the inline gallery with thumbnails and circular navigation arrows.
+* Replace the default gallery screenshot with the current gallery reference and include screenshots in the WordPress.org assets folder.
 
 = 3.0.12 =
 * Fix: gallery no longer forced to full width on classic (non-block) themes. 3.0.10 set `#wooswipe { width:100% !important }` for block-theme columns, which overrode WooCommerce’s 48% `.images` / `.summary` two-column layout (gallery stacked above product details). Full-width is now scoped to block themes only (`body.wooswipe-block-gallery` / product-image-gallery block).
@@ -276,6 +280,9 @@ That was a 3.0.10 regression on classic (PHP) themes: WooSwipe forced `#wooswipe
 * First version
 
 == Upgrade Notice ==
+
+= 3.0.13 =
+Updates the plugin banners and gallery screenshot.
 
 = 3.0.12 =
 Fixes the product gallery stretching full width on classic themes (summary should sit beside the images). Recommended update.
